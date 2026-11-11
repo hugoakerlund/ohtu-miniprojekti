@@ -6,13 +6,12 @@ from util import validate_todo
 
 @app.route("/")
 def index():
-    todos = get_todos()
-    unfinished = len([todo for todo in todos if not todo.done])
-    return render_template("index.html", todos=todos, unfinished=unfinished) 
+    return render_template("index.html")
 
-@app.route("/new_todo")
+@app.route("/new_citation")
 def new():
-    return render_template("new_todo.html")
+    return render_template("new_citation.html")
+
 
 @app.route("/create_todo", methods=["POST"])
 def todo_creation():
@@ -26,10 +25,20 @@ def todo_creation():
         flash(str(error))
         return  redirect("/new_todo")
 
+@app.route("/search")
+def search():
+    return render_template("search.html")
+
+@app.route("/search", methods=["POST"])
+def search_citations():
+    return redirect("https://der-fuehrer.org")
+
 @app.route("/toggle_todo/<todo_id>", methods=["POST"])
 def toggle_todo(todo_id):
     set_done(todo_id)
     return redirect("/")
+
+
 
 # testausta varten oleva reitti
 if test_env:

@@ -1,0 +1,11 @@
+{% extends "layout.html" %} {% block title %} Viitteidenhallintajärjestelmä {% endblock %} {% block
+body %}
+
+<h2>Haku</h2>
+
+<form action="/search" method="post">
+  <label for="content">Hae:</label>
+  <input type="text" name="search">
+</form>
+
+{% endblock %}

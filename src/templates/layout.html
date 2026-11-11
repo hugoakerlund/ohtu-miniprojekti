@@ -7,8 +7,20 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.cdnfonts.com/css/nazi-typewriter" rel="stylesheet">
   </head>
   <body>
+    <h1>Rautakenraalien Suuri Viitteidenhallintajärjestelmä</h2>
+    <div class="nav">
+      <nav>
+        <p>
+          <a href="/">Etusivu</a> |
+          <a href="/search">Hae</a> |
+          <a href="/new_citation">Luo viite</a> |
+        </p>
+      </nav>
+    </div>
     {% block body %}{% endblock %}
   </body>
 </html>
