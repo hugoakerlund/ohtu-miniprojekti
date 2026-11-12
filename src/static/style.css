@@ -4,8 +4,24 @@ body {
   margin: auto;
   font-family: 'Nazi Typewriter', sans-serif;
   line-height: 1.6;
+  text-align: center;
 }
 
 h1 {
   color: chocolate;
+}
+
+a {
+  color: white;
+}
+
+footer {
+  padding: 10px;
+  font-size: 8pt;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: red;
+  text-align: center;
 }
