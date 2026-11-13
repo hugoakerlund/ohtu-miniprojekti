@@ -6,8 +6,6 @@ Viestintäkanava: Disccord (Rautakenraalit)
 
 Definition of done: ?
 
-Testauskattavuus: ?
-
 Palautteen antamien: Sanotaan suoraan, mutta rakentavasti. 
 
 Projektia työstetään sekä yhteisillä tapaamisilla (4h), että omalla ajalla.
