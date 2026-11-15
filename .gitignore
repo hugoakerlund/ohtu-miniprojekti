@@ -1,15 +1,25 @@
-.venv
-.env
+# Pythonin luomat tiedostot
 __pycache__
-*.db
-instance/
-*.log
+*.py[oc]
+
+# Virtuaaliympäristöt
+.venv
+
+# Robot Framework
 log.html
 output.xml
 report.html
+selenium-screenshot-*.png
+
+# Editorit  ja käyttöjärjestelmä
+.vscode
+.DS_Store
+
+# Muut tiedostot
+*.env
+*.db
+*.log
 *.png
 !misc/*.png
-possu.sh
-secret.env
 playwright-log.txt
-.DS_Store
+instance/
