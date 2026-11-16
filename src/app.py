@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, create_citation
 from config import app, test_env
-from util import validate_citation
+from util import validate_citation, get_citation
 
 @app.route("/")
 def index():
@@ -16,13 +16,13 @@ def new():
 
 @app.route("/create_citation", methods=["POST"])
 def citaton_creation():
-    content = request.form.get("content")
-
+    form = get_citation(request)
     try:
-        validate_citation(content)
-        create_citation(content)
+        validate_citation(form)
+        create_citation(form)
         return redirect("/")
     except Exception as error:
+        print("error", str(error))
         flash(str(error))
         return  redirect("/new_citation")
 

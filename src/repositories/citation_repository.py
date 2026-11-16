@@ -5,8 +5,15 @@ from entities.citation import Citation
 
 def get_citations():
     result = db.session.execute(text("SELECT id, type, title, author FROM citations"))
-    citations = result.fetchall()
-    return [Citation(citation[0], citation[1], citation[2]) for citation in citations]
+    return []
 
-def create_citation():
-    pass
+def create_citation(form):
+    print("creating citation")
+    sql = """INSERT INTO citations (type, title, author, howpublished,
+             year, month, address, publisher, edition, pages)
+             VALUES (:type, :title, :author, :howpublished,
+                     :year, :month, :address, :publisher, :edition, :pages)"""
+
+    db.session.execute(text(sql), form)
+    db.session.commit()
+
