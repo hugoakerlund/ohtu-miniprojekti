@@ -32,7 +32,7 @@ def search():
 
 @app.route("/search", methods=["POST"])
 def search_citations():
-    return redirect("https://der-fuehrer.org")
+    return render_template("search.html")
 
 # testausta varten oleva reitti
 if test_env:
