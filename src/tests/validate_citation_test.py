@@ -4,15 +4,35 @@ from util import validate_citation, UserInputError
 
 class TestCitationValidation(unittest.TestCase):
     def setUp(self):
-        pass
+        self.citation_fields = {
+                "id": "",
+                "type": "",
+                "title": "",
+                "author": "",
+                "howpublished": "",
+                "year": "",
+                "month": "",
+                "address": "",
+                "publisher": "",
+                "edition": "",
+                "pages": ""
+            }
 
     def test_citation_without_required_fields_raises_error(self):
         with self.assertRaises(UserInputError):
-            validate_citation(Citation(1, "", "", ""))
-            validate_citation(Citation(1, "Article", "", ""))
-            validate_citation(Citation(1, "Article", "Title", ""))
+            validate_citation(self.citation_fields)
+
+            self.citation_fields["type"] = "Article"
+            validate_citation(self.citation_fields)
+
+            self.citation_fields["title"] = "Title"
+            validate_citation(self.citation_fields)
 
         try:
-            validate_citation(Citation(1, "Article", "Title", "Author"))
+            self.citation_fields["title"] = "Title"
+            self.citation_fields["type"] = "Article"
+            self.citation_fields["author"] = "Author"
+            validate_citation(self.citation_fields)
+
         except UserInputError:
             self.fail("validate_citation() raised exception unexpectedly.")
