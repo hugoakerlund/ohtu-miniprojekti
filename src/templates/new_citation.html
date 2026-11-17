@@ -21,11 +21,38 @@ Luo uusi viite
   <label for="title">Otsikko:</label>
   <input type="text" name="title">
   <br>
-  <label for="type">Tyyppi:</label>
-  <input type="text" name="type">
+    <label for="type">Viitemerkintätyyppi:</label>
+      <select id="type"  name="type">
+        {% for type in entry_types %}
+          <option value="{{ type }}">
+          {{ type }}
+          </option>
+        {% endfor %}
+      </select>
   <br>
   <label for="author">Tekijä:</label>
   <input type="text" name="author">
+  <br>
+  <label for="howpublished">URL:</label>
+  <input type="text" name="howpublished">
+  <br>
+  <label for="year">julkaisuvuosi:</label>
+  <input type="number" min="1900" max="2099" step="1" value="2026" name="year" />
+  <br>
+  <label for="month">Julkaisukuukausi:</label>
+  <input type="number" min="1" max="12" step="1" value="1" name="month" />
+  <br>
+  <label for="address">Osoite:</label>
+  <input type="text" name="address">
+  <br>
+  <label for="publisher">Julkaisija:</label>
+  <input type="text" name="publisher">
+  <br>
+  <label for="edition">Painos:</label>
+  <input type="text" name="edition">
+  <br>
+  <label for="pages">Sivut:</label>
+  <input type="text" name="pages">
   <br>
   <button type="submit">
     Luo

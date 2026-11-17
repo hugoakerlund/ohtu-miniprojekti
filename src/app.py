@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, create_citation
+from repositories.citation_repository import get_citations, get_entry_types, create_citation
 from config import app, test_env
 from util import validate_citation, get_citation
 
@@ -11,7 +11,8 @@ def index():
 
 @app.route("/new_citation")
 def new():
-    return render_template("new_citation.html")
+    entry_types = get_entry_types()
+    return render_template("new_citation.html", entry_types=entry_types)
 
 
 @app.route("/create_citation", methods=["POST"])
