@@ -42,6 +42,11 @@ def search():
 def search_citations():
     return render_template("search.html")
 
+@app.route("/selaa")
+def browse_citations():
+    citations = get_citations()
+    return render_template("selaa.html", citations=citations)
+
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")

@@ -4,8 +4,11 @@ from sqlalchemy import text
 from entities.citation import Citation
 
 def get_citations():
-    result = db.session.execute(text("SELECT id, type, title, author FROM citations"))
-    return []
+    result = db.session.execute(
+        text("SELECT id, type, title, author, howpublished, year, month, "
+             "address, publisher, edition, pages FROM citations")
+    )
+    return [dict(row) for row in result.mappings().all()]
 
 def get_entry_types():
     sql = "SELECT name FROM entry_types"

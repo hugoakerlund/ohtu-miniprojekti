@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block title %} Viitteidenhallintajärjestelmä {% endblock %} {% block
+body %}
+
+<h2>Kaikki viitteet</h2>
+
+<table class="citation-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tyyppi</th>
+      <th>Otsikko</th>
+      <th>Tekijä</th>
+      <th>URL</th>
+      <th>Vuosi</th>
+      <th>Kuukausi</th>
+      <th>Osoite</th>
+      <th>Julkaisija</th>
+      <th>Painos</th>
+      <th>Sivut</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for citation in citations %}
+    <tr>
+      <td>{{ citation.id }}</td>
+      <td>{{ citation.type or "" }}</td>
+      <td>{{ citation.title }}</td>
+      <td>{{ citation.author }}</td>
+      <td>{{ citation.howpublished or "" }}</td>
+      <td>{{ citation.year or "" }}</td>
+      <td>{{ citation.month or "" }}</td>
+      <td>{{ citation.address or "" }}</td>
+      <td>{{ citation.publisher or "" }}</td>
+      <td>{{ citation.edition or "" }}</td>
+      <td>{{ citation.pages or "" }}</td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="11">Tietokannassa ei ole viitteitä.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -18,6 +18,12 @@ def tables():
     result = db.session.execute(sql)
     return [row[0] for row in result.fetchall()]
 
+def get_all_citations():
+    """Return every row in the citations table."""
+    sql = text("SELECT * FROM citations")
+    result = db.session.execute(sql)
+    return [dict(row) for row in result.mappings().all()]
+
 def setup_db():
     """
     Creating the database
