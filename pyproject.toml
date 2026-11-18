@@ -17,10 +17,10 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-#    "robotframework (>=7.3.2,<8.0.0)",
-#    "robotframework-browser (>=20.1.0,<20.2.0)",
-#    "robotframework-browser-batteries (>=20.1.0,<20.2.0)",
-#    "pytest (>=8.4.2,<10.0.0)"
+    "robotframework (>=7.3.2,<8.0.0)",
+    "robotframework-browser (>=20.1.0,<20.2.0)",
+    "robotframework-browser-batteries (>=20.1.0,<20.2.0)",
+    "pytest (>=8.4.2,<10.0.0)"
 ]
 
 [tool.uv]
