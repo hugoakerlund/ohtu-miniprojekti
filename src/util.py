@@ -70,7 +70,7 @@ def validate_year(form):
             return UserInputError("Virheellinen julkaisuvuosi.")
 
 def validate_month(form):
-    if form["month"]:
+    if form["month"] and form["year"]:
         if not form["month"].isdigit():
             return UserInputError("Kuukauden on oltava numeerinen.")
 
