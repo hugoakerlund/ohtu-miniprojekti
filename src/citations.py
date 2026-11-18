@@ -2,7 +2,9 @@ from sqlalchemy import text
 from config import db
 
 def find_citation(query):
-    sql = text("""SELECT title, author, publisher
+    sql = text("""SELECT type, title, author, howpublished,
+                         year, month, address, publisher,
+                         edition, pages
              FROM citations
              WHERE title LIKE :query
                 OR author LIKE :query
