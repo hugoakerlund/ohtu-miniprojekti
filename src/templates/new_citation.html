@@ -9,45 +9,88 @@ Luo uusi viite
 <h2>Luo uusi viite</h2>
 
 <form action="/create_citation" method="post">
-  <label for="title">Otsikko:</label>
-  <input type="text" name="title">
-  <br>
-    <label for="type">Viitemerkintätyyppi:</label>
-      <select id="type"  name="type">
-        {% for type in entry_types %}
-          <option value="{{ type }}">
-          {{ type }}
-          </option>
-        {% endfor %}
-      </select>
-  <br>
-  <label for="author">Tekijä:</label>
-  <input type="text" name="author">
-  <br>
-  <label for="howpublished">URL:</label>
-  <input type="text" name="howpublished">
-  <br>
-  <label for="year">julkaisuvuosi:</label>
-  <input type="number" min="0" max="2099" step="1" value="2026" name="year" />
-  <br>
-  <label for="month">Julkaisukuukausi:</label>
-  <input type="number" min="1" max="12" step="1" value="1" name="month" />
-  <br>
-  <label for="address">Osoite:</label>
-  <input type="text" name="address">
-  <br>
-  <label for="publisher">Julkaisija:</label>
-  <input type="text" name="publisher">
-  <br>
-  <label for="edition">Painos:</label>
-  <input type="text" name="edition">
-  <br>
-  <label for="pages">Sivut:</label>
-  <input type="text" name="pages">
-  <br>
-  <button type="submit">
-    Luo
-  </button>
+  <table class="form-table">
+
+    <tr>
+      <td class="label"><label for="title">Otsikko:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="title">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="type">Viitemerkintätyyppi:</label></td>
+      <td class="control">
+        <select class="select" id="type" name="type">
+          {% for type in entry_types %}
+            <option value="{{ type }}">
+            {{ type }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="author">Tekijä:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="author">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="howpublished">URL:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="howpublished">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"> <label for="year">julkaisuvuosi:</label></td>
+      <td class="control">
+        <input class="input" type="number" min="0" max="2099" step="1" value="2026" name="year" />
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="month">Julkaisukuukausi:</label></td>
+      <td class="control">
+        <input class="input" type="number" min="1" max="12" step="1" value="1" name="month" />
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="">Osoite:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="address">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="">Julkaisija:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="publisher">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="">Painos:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="edition">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="label"><label for="">Sivut:</label></td>
+      <td class="control">
+        <input class="input" type="text" name="pages">
+      </td>
+    </tr>
+
+  </table>
+
+  <button class="button" type="submit">Luo</button>
+
 </form>
 
 {% endblock %}

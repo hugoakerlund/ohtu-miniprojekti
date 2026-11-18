@@ -40,3 +40,61 @@ footer {
   text-align: center;
   color: green;
 }
+
+.table {
+  margin: auto;
+}
+
+.button {
+  color: red ;
+  background: #000000;
+  border: 1px solid red;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  filter: brightness(5.0);
+}
+
+.form-table {
+  max-width: 760;
+  margin: 18px auto;
+  padding: 18px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+.form-table .input,
+.form-table .select {
+  width: 100%;
+  max-width: 420px;
+  padding: 8px 10px;
+  border: 1px solid red;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  background: #000000;
+  color: gold;
+}
+
+.form-table td {
+  vertical-align: middle;
+  padding: 10px 12px;
+}
+
+.form-table td.label {
+  width: 35%;
+  text-align: right;
+  padding-right: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.form-table td.control {
+  width: 65%;
+  text-align: left;
+}
