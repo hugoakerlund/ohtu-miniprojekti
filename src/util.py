@@ -75,7 +75,10 @@ def validate_month(form):
             return UserInputError("Kuukauden on oltava numeerinen.")
 
         month = int(form["month"])
-        if month > datetime.now().month or month < 1:
+        year = int(form["year"])
+        if year == datetime.now().year and month > datetime.now().month:
+            return UserInputError("Virheellinen julkaisukuukausi.")
+        if month < 1 or month > 12:
             return UserInputError("Virheellinen julkaisukuukausi.")
 
 def validate_pages(form):
