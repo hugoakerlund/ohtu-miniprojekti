@@ -56,6 +56,24 @@ button:hover {
   filter: brightness(5.0);
 }
 
+td,th {
+  padding: .5em;
+  max-width: 500px;
+  border: solid gray 1px;
+  border-collapse: collapse;
+}
+
+.citation-table{
+  max-width: 760;
+  margin: 18px auto;
+  padding: 18px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  margin: auto;
+  border: dashed brown 3px;
+}
+
 .form-table {
   max-width: 760;
   margin: 18px auto;

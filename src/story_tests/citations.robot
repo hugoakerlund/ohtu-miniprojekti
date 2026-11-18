@@ -12,7 +12,7 @@ ${NEW_CITATION_URL}   http://${SERVER}/new_citation
 At start there are no citations
     Go To  ${HOME_URL}
     Home Page Should Be Open
-    Get Text  body  *=  Järjestelmässä on tällä hetkellä 0 viitettä.
+    Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
 
 Creating a citation with correct fields succeeds
     Go To  ${NEW_CITATION_URL}
