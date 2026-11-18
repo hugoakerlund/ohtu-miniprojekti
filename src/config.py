@@ -10,5 +10,12 @@ print(f"Test environment: {test_env}")
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+db_url = getenv("DATABASE_URL")
+
+if db_url and db_url.startswith("sqlite:///"):
+    path = db_url.replace("sqlite:///", "", 1)
+    if not path.startswith("/"):
+        db_url = "sqlite:////tmp/" + path
+
+app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 db = SQLAlchemy(app)
