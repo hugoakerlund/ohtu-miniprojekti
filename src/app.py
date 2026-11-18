@@ -38,10 +38,6 @@ def search():
         results = []
     return render_template("search.html", query=query, results=results)
 
-@app.route("/search", methods=["POST"])
-def search_citations():
-    return render_template("search.html")
-
 # testausta varten oleva reitti
 if test_env:
     @app.route("/reset_db")
