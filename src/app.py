@@ -22,6 +22,7 @@ def citaton_creation():
     try:
         validate_citation(form)
         create_citation(form)
+        flash("Viite luotu.", "success")
         return redirect("/")
     except Exception as error:
         flash(str(error), "error")

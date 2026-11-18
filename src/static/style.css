@@ -16,11 +16,8 @@ a {
 }
 
 footer {
-  padding: 10px;
+  padding-top: 100px;
   font-size: 8pt;
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
   color: red;
   text-align: center;
@@ -45,7 +42,7 @@ footer {
   margin: auto;
 }
 
-.button {
+button {
   color: red ;
   background: #000000;
   border: 1px solid red;
@@ -55,7 +52,7 @@ footer {
   cursor: pointer;
 }
 
-.button:hover {
+button:hover {
   filter: brightness(5.0);
 }
 
