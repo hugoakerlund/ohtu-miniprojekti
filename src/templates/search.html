@@ -8,4 +8,14 @@ body %}
   <input type="text" name="search">
 </form>
 
+{% if query %}
+
+<h3>Hakutulokset</h3>
+
+{% for citation in results %}
+
+{{ citation.author }}: {{ citation.title }}
+
+{% endfor %}
+{% endif %}
 {% endblock %}

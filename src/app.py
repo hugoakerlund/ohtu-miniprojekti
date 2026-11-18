@@ -3,6 +3,7 @@ from db_helper import reset_db
 from repositories.citation_repository import get_citations, get_entry_types, create_citation
 from config import app, test_env
 from util import validate_citation, get_citation
+import citations
 
 @app.route("/")
 def index():
@@ -29,7 +30,13 @@ def citaton_creation():
 
 @app.route("/search")
 def search():
-    return render_template("search.html")
+    query = request.args.get("query")
+    if query:
+        results = citations.find_citation(query)
+    else:
+        query = ""
+        results = []
+    return render_template("search.html", query=query, results=results)
 
 @app.route("/search", methods=["POST"])
 def search_citations():
