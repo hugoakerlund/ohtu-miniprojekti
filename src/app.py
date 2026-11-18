@@ -24,8 +24,7 @@ def citaton_creation():
         create_citation(form)
         return redirect("/")
     except Exception as error:
-        print("error", str(error))
-        flash(str(error))
+        flash(str(error), "error")
         return  redirect("/new_citation")
 
 @app.route("/search")

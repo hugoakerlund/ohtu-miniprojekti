@@ -21,6 +21,31 @@
         </p>
       </nav>
     </div>
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+    <div class="error">
+      <ul>
+        {%- for msg in errors %}
+        <li>{{ msg }}</li>
+        {% endfor -%}
+      </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% with successes = get_flashed_messages(category_filter=["success"]) %}
+    {% if successes %}
+    <div class="success">
+      <ul>
+        {%- for msg in successes %}
+        <li>{{ msg }}</li>
+        {% endfor -%}
+      </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+
     {% block body %}{% endblock %}
     <footer>
       RautakenraalIT GmbH
