@@ -2,6 +2,8 @@
 
 [Pelisäännöt](./pelisaannot.md)
 
+[OKD klusteri](https://route-acual-ohjelmistotuotanto-lahiopetus-2026-13.ext.okd-cs-test-0.k8s.cs.helsinki.fi)
+
 ## Backlogit
 
 [Product backlog](https://github.com/users/hugoakerlund/projects/2/views/1)
