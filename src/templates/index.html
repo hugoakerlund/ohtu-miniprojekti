@@ -10,36 +10,45 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
 
 <h3>Viitteet</h3>
 
-<table class="citation-table">
-  <tr>
-    <th>Otsikko</th>
-    <th>Viitemerkintätyyppi</th>
-    <th>Tekijä</th>
-    <th>URL</th>
-    <th>Vuosi</th>
-    <th>Kuukausi</th>
-    <th>Osoite</th>
-    <th>Julkaisija</th>
-    <th>Painos</th>
-    <th>Sivut</th>
-  </tr>
+<form>
+  <table class="citation-table">
+    <tr>
+      <th>Otsikko</th>
+      <th>Viitemerkintätyyppi</th>
+      <th>Tekijä</th>
+      <th>URL</th>
+      <th>Vuosi</th>
+      <th>Kuukausi</th>
+      <th>Osoite</th>
+      <th>Julkaisija</th>
+      <th>Painos</th>
+      <th>Sivut</th>
+      <th>Poista</th>
+    </tr>
 
-  {% for citation in citations %}
-  <tr>
-    <td>{{ citation.title }}</td>
-    <td>{{ citation.type }}</td>
-    <td>{{ citation.author }}</td>
-    <td>{{ citation.howpublished or "" }}</td>
-    <td>{{ citation.year or "" }}</td>
-    <td>{{ citation.month or "" }}</td>
-    <td>{{ citation.address or "" }}</td>
-    <td>{{ citation.publisher or "" }}</td>
-    <td>{{ citation.edition or "" }}</td>
-    <td>{{ citation.pages or "" }}</td>
-  </tr>
-  {% endfor %}
+    {% for citation in citations %}
+      <tr>
+        <td>{{ citation.title }}</td>
+        <td>{{ citation.type }}</td>
+        <td>{{ citation.author }}</td>
+        <td>{{ citation.howpublished or "" }}</td>
+        <td>{{ citation.year or "" }}</td>
+        <td>{{ citation.month or "" }}</td>
+        <td>{{ citation.address or "" }}</td>
+        <td>{{ citation.publisher or "" }}</td>
+        <td>{{ citation.edition or "" }}</td>
+        <td>{{ citation.pages or "" }}</td>
+        <td>
+        <input type="checkbox" name="delete" id=citation.id>
+        </td>
+      </tr>
+    {% endfor %}
 
-</table>
+  </table>
+
+  <button id="submit" type="submit">Poista</button>
+
+</form>
 
 {% endif %}
 

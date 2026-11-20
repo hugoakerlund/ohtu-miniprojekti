@@ -46,6 +46,7 @@ button {
   color: red ;
   background: #000000;
   border: 1px solid red;
+  margin: 20px;
   padding: 10px 16px;
   border-radius: 10px;
   font-weight: 600;
@@ -83,7 +84,7 @@ td,th {
   border-collapse: collapse;
 }
 
-.form-table .input,
+input,
 .form-table .select {
   width: 100%;
   max-width: 420px;
@@ -112,4 +113,25 @@ td,th {
 .form-table td.control {
   width: 65%;
   text-align: left;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: grey;
+  border: 1px solid white;
+  round: 10px;
+}
+
+input[type="checkbox"]:hover {
+  background-color: gold;
+  border: 1px solid red;
+}
+
+input[type="checkbox"]:checked {
+  background-color: red;
+  border: 1px solid gold;
 }
