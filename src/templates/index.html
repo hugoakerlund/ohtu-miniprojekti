@@ -10,7 +10,10 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
 
 <h3>Viitteet</h3>
 
-<form action="/delete_citation" method="post">
+
+<!-- <form action="/delete_citations" method="post" onsubmit="asdf = confirm('varmastikko'); return asdf"> -->
+<form action="/delete_citations" method="post" onsubmit="ensimmainen = confirm('Oletko varma?'); if (ensimmainen) {
+  toinen = confirm('Oletko aivan varma?'); if (toinen) { return confirm('OLETKO AIVAN VARMA!!?\nSKARPPAA SENKIN POOKI!'); } } return false">
   <table class="citation-table">
     <tr>
       <th>Otsikko</th>

@@ -28,11 +28,10 @@ def citation_creation():
         flash(str(error), "error")
         return redirect("/new_citation")
 
-@app.route("/delete_citation", methods=["POST"])
+@app.route("/delete_citations", methods=["POST"])
 def citation_deletion():
-    print("deletin citations")
     ids = get_ids_to_delete(request)
-    print("deleting ids:", ids)
+
     try:
         for id in ids:
             delete_citation(id)
