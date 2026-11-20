@@ -17,6 +17,9 @@ def get_citation(request):
     form["pages"] = request.form.get("pages", "").strip() or None
     return form
 
+def get_ids_to_delete(request):
+    return [id for id in request.form]
+
 def validate_citation(form):
     errors = []
     errors.append(validate_required_fields(form))

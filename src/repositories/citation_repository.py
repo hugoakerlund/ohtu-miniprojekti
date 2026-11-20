@@ -24,3 +24,8 @@ def create_citation(form):
 
     db.session.execute(text(sql), form)
     db.session.commit()
+
+def delete_citation(id):
+    sql = """DELETE FROM citations where id = :id"""
+    db.session.execute(text(sql), {"id": id})
+    db.session.commit()

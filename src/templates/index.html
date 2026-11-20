@@ -10,7 +10,7 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
 
 <h3>Viitteet</h3>
 
-<form>
+<form action="/delete_citation" method="post">
   <table class="citation-table">
     <tr>
       <th>Otsikko</th>
@@ -39,7 +39,7 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
         <td>{{ citation.edition or "" }}</td>
         <td>{{ citation.pages or "" }}</td>
         <td>
-        <input type="checkbox" name="delete" id=citation.id>
+          <input type="checkbox" name="{{ citation.id }}" id=citation.id>
         </td>
       </tr>
     {% endfor %}

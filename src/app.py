@@ -1,8 +1,8 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, get_entry_types, create_citation
+from repositories.citation_repository import get_citations, get_entry_types, create_citation, delete_citation
 from config import app, test_env
-from util import validate_citation, get_citation
+from util import validate_citation, get_citation, get_ids_to_delete
 import citations
 
 @app.route("/")
@@ -17,7 +17,7 @@ def new():
 
 
 @app.route("/create_citation", methods=["POST"])
-def citaton_creation():
+def citation_creation():
     form = get_citation(request)
     try:
         validate_citation(form)
@@ -26,7 +26,20 @@ def citaton_creation():
         return redirect("/")
     except Exception as error:
         flash(str(error), "error")
-        return  redirect("/new_citation")
+        return redirect("/new_citation")
+
+@app.route("/delete_citation", methods=["POST"])
+def citation_deletion():
+    print("deletin citations")
+    ids = get_ids_to_delete(request)
+    print("deleting ids:", ids)
+    try:
+        for id in ids:
+            delete_citation(id)
+        flash(f"Poistettu onnistuneesti {len(ids)} viitettä.", "success")
+    except:
+        flash(str(error), "error")
+    return redirect("/")
 
 @app.route("/search")
 def search():
