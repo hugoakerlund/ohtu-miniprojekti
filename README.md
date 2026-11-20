@@ -4,6 +4,8 @@
 
 [OKD klusteri](https://route-acual-ohjelmistotuotanto-lahiopetus-2026-13.ext.okd-cs-test-0.k8s.cs.helsinki.fi)
 
+[CI-palvelu](https://github.com/hugoakerlund/ohtu-miniprojekti/actions)
+
 ## Backlogit
 
 [Product backlog](https://github.com/users/hugoakerlund/projects/2/views/1)
