@@ -42,7 +42,7 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
         <td>{{ citation.edition or "" }}</td>
         <td>{{ citation.pages or "" }}</td>
         <td>
-          <input type="checkbox" name="{{ citation.id }}" id=citation.id>
+          <input type="checkbox" name="{{ citation.id }}" id=citation.id data-testid="delete-button">
         </td>
       </tr>
     {% endfor %}

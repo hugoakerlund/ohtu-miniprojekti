@@ -41,6 +41,13 @@ Creating a citation with incorrect fields fails
     Creation Should Fail With Message  Otsikko, viitemerkintätyyppi ja tekijä ovat pakolliset kentät.
     Create Citation Page Should Be Open
 
+When a citation exists deleting a citation succeeds
+    Handle Future Dialogs    action=accept
+    Create citation
+    Click  data-testid=delete-button
+    Click  button >> text=Poista
+    Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
+
 *** Keywords ***
 Creation Should Succeed
     Home Page Should Be Open
@@ -50,6 +57,16 @@ Creation Should Fail With Message
     [Arguments]  ${message}
     Create Citation Page Should Be Open
     Get Text  body  *=  ${message}
+
+Create citation
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Set Title  test title
+    Set Author  test author
+    Click  button >> text=Luo
+    Creation Should Succeed
+    Home Page Should Be Open
+    Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 1 kpl.
 
 Set Title
     [Arguments]  ${title}
