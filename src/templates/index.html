@@ -10,10 +10,34 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
 
 <h3>Viitteet</h3>
 
+<script>
+  function promptPooki() {
+    ensimmainen = confirm('Oletko varma?');
+    if (ensimmainen) {
+      toinen = confirm('Oletko aivan varma?');
+      if (toinen) {
+        return confirm('OLETKO AIVAN VARMA!!?\nSKARPPAA SENKIN POOKI!');
+      }
+    }
+    return false;
+  }
 
-<!-- <form action="/delete_citations" method="post" onsubmit="asdf = confirm('varmastikko'); return asdf"> -->
-<form action="/delete_citations" method="post" onsubmit="ensimmainen = confirm('Oletko varma?'); if (ensimmainen) {
-  toinen = confirm('Oletko aivan varma?'); if (toinen) { return confirm('OLETKO AIVAN VARMA!!?\nSKARPPAA SENKIN POOKI!'); } } return false">
+  function updateDeleteButton()  {
+    let checkedBoxes = document.getElementsByClassName("checkbox")
+    let deleteButton = document.getElementById("submit")
+    for (let i = 0; i < checkedBoxes.length; ++i) {
+      if (checkedBoxes[i].checked) {
+        deleteButton.style.visibility = "visible";
+        return;
+      }
+      else {
+        deleteButton.style.visibility = "hidden";
+      }
+    }
+  }
+</script>
+
+<form action="/delete_citations" method="post" onsubmit="return promptPooki();">
   <table class="citation-table">
     <tr>
       <th>Otsikko</th>
@@ -30,21 +54,21 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
     </tr>
 
     {% for citation in citations %}
-      <tr>
-        <td>{{ citation.title }}</td>
-        <td>{{ citation.type }}</td>
-        <td>{{ citation.author }}</td>
-        <td>{{ citation.howpublished or "" }}</td>
-        <td>{{ citation.year or "" }}</td>
-        <td>{{ citation.month or "" }}</td>
-        <td>{{ citation.address or "" }}</td>
-        <td>{{ citation.publisher or "" }}</td>
-        <td>{{ citation.edition or "" }}</td>
-        <td>{{ citation.pages or "" }}</td>
-        <td>
-          <input type="checkbox" name="{{ citation.id }}" id=citation.id data-testid="delete-button">
-        </td>
-      </tr>
+    <tr>
+      <td>{{ citation.title }}</td>
+      <td>{{ citation.type }}</td>
+      <td>{{ citation.author }}</td>
+      <td>{{ citation.howpublished or "" }}</td>
+      <td>{{ citation.year or "" }}</td>
+      <td>{{ citation.month or "" }}</td>
+      <td>{{ citation.address or "" }}</td>
+      <td>{{ citation.publisher or "" }}</td>
+      <td>{{ citation.edition or "" }}</td>
+      <td>{{ citation.pages or "" }}</td>
+      <td>
+        <input class="checkbox" type="checkbox" name="{{ citation.id }}" id="delete-button" onclick="updateDeleteButton()">
+      </td>
+    </tr>
     {% endfor %}
 
   </table>
@@ -52,6 +76,10 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
   <button id="submit" type="submit">Poista</button>
 
 </form>
+
+<script>
+  updateDeleteButton();
+</script>
 
 {% endif %}
 

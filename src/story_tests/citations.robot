@@ -44,7 +44,7 @@ Creating a citation with incorrect fields fails
 When a citation exists deleting a citation succeeds
     Handle Future Dialogs    action=accept
     Create citation
-    Click  data-testid=delete-button
+    Click  id=delete-button
     Click  button >> text=Poista
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
 

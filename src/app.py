@@ -31,13 +31,13 @@ def citation_creation():
 @app.route("/delete_citations", methods=["POST"])
 def citation_deletion():
     ids = get_ids_to_delete(request)
-
-    try:
-        for id in ids:
-            delete_citation(id)
-        flash(f"Poistettu onnistuneesti {len(ids)} viitettä.", "success")
-    except:
-        flash(str(error), "error")
+    if len(ids) > 0:
+        try:
+            for id in ids:
+                delete_citation(id)
+            flash(f"Poistettu onnistuneesti {len(ids)} viitettä.", "success")
+        except:
+            flash(str(error), "error")
     return redirect("/")
 
 @app.route("/search")
