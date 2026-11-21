@@ -1,9 +1,8 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, get_entry_types, create_citation, delete_citation
+from repositories.citation_repository import get_citations, get_entry_types, create_citation, delete_citation, find_citation
 from config import app, test_env
 from util import validate_citation, get_citation, get_ids_to_delete
-import citations
 
 @app.route("/")
 def index():
@@ -44,7 +43,7 @@ def citation_deletion():
 def search():
     query = request.args.get("query")
     if query:
-        results = citations.find_citation(query)
+        results = find_citation(query)
     else:
         query = ""
         results = []
