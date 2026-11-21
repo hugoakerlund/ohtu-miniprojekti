@@ -44,3 +44,8 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({ 'message': "db reset" })
+
+@app.route("/choose_citation_type", methods=["POST"])
+def choose_citation_type():
+    citation_type = request.form["type"]
+    return render_template(f"new_{citation_type}.html")

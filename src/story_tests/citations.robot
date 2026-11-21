@@ -6,6 +6,7 @@ Test Setup       Reset Citations
 
 *** Variables ***
 ${NEW_CITATION_URL}   http://${SERVER}/new_citation
+${NEW_ARTICLE_URL}   http://${SERVER}/new_article
 
 
 *** Test Cases ***
@@ -14,25 +15,37 @@ At start there are no citations
     Home Page Should Be Open
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
 
-Creating a citation with correct fields succeeds
+User can choose a citation type
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
-    Set Title  test title
+    Select Options By  id=type  label  article
+    Click  button >> text=Täytä Lomake
+    Get Text  body  *=  Luo uusi artikkeli
+
+Creating an article with correct fields succeeds
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=type  label  article
+    Click  button >> text=Täytä Lomake
+    Create Article Page Should Be Open
     Set Author  test author
-    Set Howpublished  https://example.com
-    Set Year  1900
-    Set Month  1
-    Set Address  test address
+    Set Title  test title
     Set Publisher  test publisher
+    Set Year  1900
     Set Edition  test edition
     Set Pages  12-100
+    Set Month  1
+    Set Howpublished  https://example.com
     Click  button >> text=Luo
     Creation Should Succeed
     Home Page Should Be Open
 
-Creating a citation with incorrect fields fails
+Creating an article with incorrect fields fails
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
+    Select Options By  id=type  label  article
+    Click  button >> text=Täytä Lomake
+    Create Article Page Should Be Open
     Set Title  test title
     Set Publisher  test publisher
     Set Edition  test edition
@@ -86,3 +99,6 @@ Set Edition
 Set Pages
     [Arguments]  ${pages}
     Fill Text  id=pages  ${pages}
+
+Create Article Page Should Be Open
+    Get Title  ==  Luo uusi artikkeli
