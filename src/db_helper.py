@@ -51,20 +51,7 @@ def setup_db():
 
 def seed_table_entry_types():
     entry_types = [
-            "article",
-            "book",
-            "booklet",
-            "conference",
-            "inbook",
-            "incollection",
-            "inproceedings",
-            "manual",
-            "mastersthesis",
-            "misc",
-            "phdthesis",
-            "proceedings",
-            "techreport",
-            "unpublished",
+            "article"
             ]
 
     for entry_type in entry_types:
