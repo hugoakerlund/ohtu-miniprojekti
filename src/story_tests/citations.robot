@@ -6,8 +6,6 @@ Test Setup       Reset Citations
 
 *** Variables ***
 ${NEW_CITATION_URL}   http://${SERVER}/new_citation
-${NEW_ARTICLE_URL}   http://${SERVER}/new_article
-
 
 *** Test Cases ***
 At start there are no citations
@@ -23,20 +21,7 @@ User can choose a citation type
     Get Text  body  *=  Luo uusi artikkeli
 
 Creating an article with correct fields succeeds
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=type  label  article
-    Click  button >> text=Täytä Lomake
-    Create Article Page Should Be Open
-    Set Author  test author
-    Set Title  test title
-    Set Publisher  test publisher
-    Set Year  1900
-    Set Edition  test edition
-    Set Pages  12-100
-    Set Month  1
-    Set Howpublished  https://example.com
-    Click  button >> text=Luo
+    Create citation  article
     Creation Should Succeed
     Home Page Should Be Open
 
@@ -55,8 +40,8 @@ Creating an article with incorrect fields fails
     Create Citation Page Should Be Open
 
 When a citation exists deleting a citation succeeds
-    Handle Future Dialogs    action=accept
-    Create citation
+    Handle Future Dialogs  action=accept
+    Create citation  article
     Click  id=delete-button
     Click  button >> text=Poista
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
@@ -72,18 +57,25 @@ Creation Should Fail With Message
     Get Text  body  *=  ${message}
 
 Create citation
+    [Arguments]  ${entry_type}
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
-    Set Title  test title
+    Select Options By  id=type  label  ${entry_type}
+    Click  button >> text=Täytä Lomake
+    Create Article Page Should Be Open
     Set Author  test author
+    Set Title  test title
+    Set Publisher  test publisher
+    Set Year  1900
+    Set Edition  test edition
+    Set Pages  12-100
+    Set Month  1
+    Set Howpublished  https://example.com
     Click  button >> text=Luo
-    Creation Should Succeed
-    Home Page Should Be Open
-    Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 1 kpl.
 
 Set Title
     [Arguments]  ${title}
-    Fill Text   id=title  ${title}
+    Fill Text  id=title  ${title}
 
 Set Author
     [Arguments]  ${author}
