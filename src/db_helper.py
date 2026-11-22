@@ -55,7 +55,7 @@ def seed_table_entry_types():
             ]
 
     for entry_type in entry_types:
-        params = ({"name": entry_type})
+        params = {"name": entry_type}
         db.session.execute(text("INSERT INTO entry_types (name) VALUES (:name)"), params)
     db.session.commit()
 

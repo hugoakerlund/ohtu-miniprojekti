@@ -1,7 +1,5 @@
-from config import db
 from sqlalchemy import text
-
-from entities.citation import Citation
+from config import db
 
 def get_citations():
     result = db.session.execute(
@@ -25,9 +23,9 @@ def create_citation(form):
     db.session.execute(text(sql), form)
     db.session.commit()
 
-def delete_citation(id):
+def delete_citation(citation_id):
     sql = """DELETE FROM citations where id = :id"""
-    db.session.execute(text(sql), {"id": id})
+    db.session.execute(text(sql), {"id": citation_id})
     db.session.commit()
 
 

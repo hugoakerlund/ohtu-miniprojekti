@@ -1,8 +1,9 @@
 from flask import redirect, render_template, request, jsonify, flash
 from db_helper import reset_db
-from repositories.citation_repository import get_citations, get_entry_types, create_citation, delete_citation, find_citation
+from repositories.citation_repository import get_citations, get_entry_types, \
+     create_citation, delete_citation, find_citation
 from config import app, test_env
-from util import validate_citation, get_citation, get_ids_to_delete
+from util import UserInputError, validate_citation, get_citation
 
 @app.route("/")
 def index():
@@ -10,10 +11,14 @@ def index():
     return render_template("index.html", citations=citations)
 
 @app.route("/new_citation")
-def new():
+def new_citation():
     entry_types = get_entry_types()
     return render_template("new_citation.html", entry_types=entry_types)
 
+@app.route("/choose_citation_type", methods=["POST"])
+def choose_citation_type():
+    citation_type = request.form["type"]
+    return render_template(f"new_{citation_type}.html")
 
 @app.route("/create_citation", methods=["POST"])
 def citation_creation():
@@ -23,20 +28,18 @@ def citation_creation():
         create_citation(form)
         flash("Viite luotu.", "success")
         return redirect("/")
-    except Exception as error:
+    except UserInputError as error:
         flash(str(error), "error")
         return redirect("/new_citation")
 
 @app.route("/delete_citations", methods=["POST"])
 def citation_deletion():
-    ids = get_ids_to_delete(request)
-    if len(ids) > 0:
-        try:
-            for id in ids:
-                delete_citation(id)
-            flash(f"Poistettu onnistuneesti {len(ids)} viitettä.", "success")
-        except:
-            flash(str(error), "error")
+    citations = list(request.form)
+    print(citations)
+    if len(citations) > 0:
+        for citation in citations:
+            delete_citation(citation)
+        flash(f"Poistettu onnistuneesti {len(citations)} viitettä.", "success")
     return redirect("/")
 
 @app.route("/search")
@@ -55,8 +58,3 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({ 'message': "db reset" })
-
-@app.route("/choose_citation_type", methods=["POST"])
-def choose_citation_type():
-    citation_type = request.form["type"]
-    return render_template(f"new_{citation_type}.html")
