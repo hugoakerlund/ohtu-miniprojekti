@@ -1,6 +1,8 @@
 [MASTER]
 
 ignore-paths=src/tests
+ignored-modules=dotenv,flask_sqlalchemy
+ignore=db_helper.py
 
 [MESSAGE CONTROL]
 
