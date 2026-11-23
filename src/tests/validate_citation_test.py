@@ -5,16 +5,17 @@ from util import validate_citation, UserInputError
 class TestCitationValidation(unittest.TestCase):
     def setUp(self):
         self.citation = {
-                "title": "title",
-                "type": "article",
+                "entry_type": "article",
                 "author": "author",
-                "howpublished": None,
+                "title": "title",
+                "journal": None,
                 "year": None,
+                "volume": None,
+                "number": None,
+                "pages": None,
                 "month": None,
-                "address": None,
-                "publisher": None,
-                "edition": None,
-                "pages": None
+                "note": None,
+                "annote": None
             }
 
     def test_citation_passes(self):
@@ -25,15 +26,15 @@ class TestCitationValidation(unittest.TestCase):
 
     def test_citation_without_required_fields_raises_error(self):
         with self.assertRaises(UserInputError):
-            self.citation["type"] = ""
+            self.citation["entry_type"] = ""
             validate_citation(self.citation)
 
-        self.citation["type"] = "article"
+        self.citation["entry_type"] = "article"
         self.test_citation_passes()
 
     def test_citation_incorrect_entry_type_causes_error(self):
         with self.assertRaises(UserInputError):
-            self.citation["type"] = "INCORRECT"
+            self.citation["entry_type"] = "INCORRECT"
             validate_citation(self.citation)
 
     def test_citation_with_too_long_fields_causes_error(self):

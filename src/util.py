@@ -6,8 +6,8 @@ class UserInputError(Exception):
     pass
 
 def get_citation(request):
-    fields = ["title", "type", "author", "howpublished", "year", "month",
-              "address", "publisher", "edition", "pages"]
+    fields = ["entry_type", "author", "title", "journal", "year", "volume",
+              "number", "pages", "month", "note", "annote", "howpublished"]
     form= {}
     for field in fields:
         form[field] = request.form.get(field, "").strip() or None
@@ -27,7 +27,7 @@ def validate_citation(form):
             raise UserInputError(error)
 
 def validate_required_fields(form):
-    if not form["title"] or not form["type"] or not form["author"]:
+    if not form["title"] or not form["entry_type"] or not form["author"]:
         return UserInputError("Otsikko, viitemerkintätyyppi ja tekijä ovat pakolliset kentät.")
     return None
 
@@ -35,7 +35,7 @@ def validate_type(form):
     entry_types = [
             "article"
             ]
-    if form["type"] not in entry_types:
+    if form["entry_type"] not in entry_types:
         return UserInputError("Virheellinen viitemerkintätyyppi.")
     return None
 

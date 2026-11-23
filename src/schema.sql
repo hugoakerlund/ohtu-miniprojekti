@@ -1,18 +1,21 @@
-CREATE TABLE citations (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  type TEXT REFERENCES entry_types(name),
-  title TEXT NOT NULL,
-  author TEXT NOT NULL,
-  howpublished TEXT,
-  year INTEGER,
-  month TEXT,
-  address TEXT,
-  publisher TEXT,
-  edition TEXT,
-  pages TEXT
-);
+PRAGMA foreign_keys = ON;
 
 CREATE TABLE entry_types (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL
+  name TEXT PRIMARY KEY
+);
+
+CREATE TABLE citations (
+  id INTEGER PRIMARY KEY,
+  entry_type TEXT NOT NULL REFERENCES entry_types(name),
+  author TEXT NOT NULL,
+  title TEXT NOT NULL,
+  journal TEXT,
+  year INTEGER,
+  volume TEXT,
+  number TEXT,
+  pages TEXT,
+  month TEXT,
+  note TEXT,
+  annote TEXT,
+  howpublished TEXT
 );

@@ -16,32 +16,43 @@ At start there are no citations
 User can choose a citation type
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
-    Select Options By  id=type  label  article
+    Select Options By  id=entry_type  label  article
     Click  button >> text=Täytä Lomake
     Get Text  body  *=  Luo uusi artikkeli
 
 Creating an article with correct fields succeeds
-    Create citation  article
+    Create Article
     Creation Should Succeed
     Home Page Should Be Open
 
-Creating an article with incorrect fields fails
+An article cannot be created without required fields
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
-    Select Options By  id=type  label  article
+    Select Options By  id=entry_type  label  article
     Click  button >> text=Täytä Lomake
     Create Article Page Should Be Open
     Set Title  test title
-    Set Publisher  test publisher
-    Set Edition  test edition
+    Set Journal  test journal
     Set Pages  12-100
     Click  button >> text=Luo
-    Creation Should Fail With Message  Otsikko, viitemerkintätyyppi ja tekijä ovat pakolliset kentät.
+    Create Article Page Should Be Open
+
+Creating an article fails with incorrect fields
+    Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
+    Select Options By  id=entry_type  label  article
+    Click  button >> text=Täytä Lomake
+    Create Article Page Should Be Open
+    Set Title  test title
+    Set Author  test author
+    Set Journal  test journal
+    Set Pages  12-0
+    Click  button >> text=Luo
+    Creation Should Fail With Message  Virheelliset sivunumerot.
 
 When a citation exists deleting a citation succeeds
     Handle Future Dialogs  action=accept
-    Create citation  article
+    Create Article
     Click  id=delete-button
     Click  button >> text=Poista
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
@@ -53,24 +64,18 @@ Creation Should Succeed
 
 Creation Should Fail With Message
     [Arguments]  ${message}
-    Create Citation Page Should Be Open
     Get Text  body  *=  ${message}
 
-Create citation
-    [Arguments]  ${entry_type}
+Create Article
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
-    Select Options By  id=type  label  ${entry_type}
+    Select Options By  id=entry_type  label  article
     Click  button >> text=Täytä Lomake
     Create Article Page Should Be Open
-    Set Author  test author
     Set Title  test title
-    Set Publisher  test publisher
+    Set Author  test author
+    Set Journal  test journal
     Set Year  1900
-    Set Edition  test edition
-    Set Pages  12-100
-    Set Month  1
-    Set Howpublished  https://example.com
     Click  button >> text=Luo
 
 Set Title
@@ -81,29 +86,13 @@ Set Author
     [Arguments]  ${author}
     Fill Text  id=author  ${author}
 
-Set Howpublished
-    [Arguments]  ${howpublished}
-    Fill Text  id=howpublished  ${howpublished}
-
 Set Year
     [Arguments]  ${year}
     Fill Text  id=year  ${year}
 
-Set Month
-    [Arguments]  ${month}
-    Fill Text  id=month  ${month}
-
-Set Address
-    [Arguments]  ${address}
-    Fill Text  id=address  ${address}
-
-Set Publisher
-    [Arguments]  ${publisher}
-    Fill Text  id=publisher  ${publisher}
-
-Set Edition
-    [Arguments]  ${edition}
-    Fill Text  id=edition  ${edition}
+Set Journal
+    [Arguments]  ${journal}
+    Fill Text  id=journal  ${journal}
 
 Set Pages
     [Arguments]  ${pages}

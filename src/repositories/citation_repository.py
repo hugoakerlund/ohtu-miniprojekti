@@ -1,11 +1,17 @@
 from sqlalchemy import text
 from config import db
 
+ALL_FIELDS = """entry_type, author, title, journal, year,
+                volume, number, pages, month, note, annote,
+                howpublished"""
+
+ALL_VALUES =  """:entry_type, :author, :title, :journal, :year,
+                 :volume, :number, :pages, :month, :note, :annote,
+                 :howpublished"""
+
 def get_citations():
-    result = db.session.execute(
-        text("SELECT id, type, title, author, howpublished, year, month, "
-             "address, publisher, edition, pages FROM citations")
-    )
+    sql = f"""SELECT id, {ALL_FIELDS} FROM citations"""
+    result = db.session.execute(text(sql))
     return [dict(row) for row in result.mappings().all()]
 
 def get_entry_types():
@@ -15,11 +21,8 @@ def get_entry_types():
     return [entry[0] for entry in entry_types]
 
 def create_citation(form):
-    sql = """INSERT INTO citations (type, title, author, howpublished,
-             year, month, address, publisher, edition, pages)
-             VALUES (:type, :title, :author, :howpublished,
-             :year, :month, :address, :publisher, :edition, :pages)"""
-
+    sql = f"""INSERT INTO citations ({ALL_FIELDS})
+             VALUES ({ALL_VALUES})"""
     db.session.execute(text(sql), form)
     db.session.commit()
 
@@ -30,13 +33,11 @@ def delete_citation(citation_id):
 
 
 def find_citation(query):
-    sql = text("""SELECT type, title, author, howpublished,
-                         year, month, address, publisher,
-                         edition, pages
-             FROM citations
-             WHERE title LIKE :query
-                OR author LIKE :query
-                OR publisher LIKE :query
-             ORDER BY id""")
-    result = db.session.execute(sql, {"query": f"%{query}%"})
+    sql = f"""SELECT id, {ALL_FIELDS}
+              FROM citations
+              WHERE title LIKE :query
+                 OR author LIKE :query
+                 OR journal LIKE :query
+              ORDER BY id"""
+    result = db.session.execute(text(sql), {"query": f"%{query}%"})
     return [dict(row) for row in result.mappings().all()]

@@ -17,7 +17,7 @@ def new_citation():
 
 @app.route("/choose_citation_type", methods=["POST"])
 def choose_citation_type():
-    citation_type = request.form["type"]
+    citation_type = request.form["entry_type"]
     return render_template(f"new_{citation_type}.html")
 
 @app.route("/create_citation", methods=["POST"])
@@ -30,12 +30,11 @@ def citation_creation():
         return redirect("/")
     except UserInputError as error:
         flash(str(error), "error")
-        return redirect("/new_citation")
+        return render_template(f"/new_{form['entry_type']}.html")
 
 @app.route("/delete_citations", methods=["POST"])
 def citation_deletion():
     citations = list(request.form)
-    print(citations)
     if len(citations) > 0:
         for citation in citations:
             delete_citation(citation)
