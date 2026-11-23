@@ -54,6 +54,38 @@ Creating an article with incorrect fields fails
     Creation Should Fail With Message  Otsikko, viitemerkintätyyppi ja tekijä ovat pakolliset kentät.
     Create Citation Page Should Be Open
 
+Creating a book with correct fields succeeds
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=type  label  book
+    Click  button >> text=Täytä Lomake
+    Get Title  ==  Luo uusi kirja
+    Set Author  test author
+    Set Title  test title
+    Set Publisher  test publisher
+    Set Year  1900
+    Set Edition  test edition
+    Set Pages  12-100
+    Set Month  1
+    Set Howpublished  https://example.com
+    Click  button >> text=Luo
+    Creation Should Succeed
+    Home Page Should Be Open
+
+Creating a book with incorrect fields fails
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=type  label  book
+    Click  button >> text=Täytä Lomake
+    Get Title  ==  Luo uusi kirja
+    Set Title  test title
+    Set Publisher  test publisher
+    Set Edition  test edition
+    Set Pages  12-100
+    Click  button >> text=Luo
+    Creation Should Fail With Message  Otsikko, viitemerkintätyyppi ja tekijä ovat pakolliset kentät.
+    Create Citation Page Should Be Open
+
 *** Keywords ***
 Creation Should Succeed
     Home Page Should Be Open

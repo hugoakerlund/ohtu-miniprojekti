@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export TEST_ENV=true
+
 echo "Running tests"
 
 # luodaan tietokanta
