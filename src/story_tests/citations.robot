@@ -1,11 +1,10 @@
 *** Settings ***
-Resource  resource.robot
+Resource         resource.robot
 Suite Setup      Open And Configure Browser
 Suite Teardown   Close Browser
 Test Setup       Reset Citations
 
 *** Variables ***
-${NEW_CITATION_URL}   http://${SERVER}/new_citation
 
 *** Test Cases ***
 At start there are no citations
@@ -20,132 +19,21 @@ User can choose a citation type
     Click  button >> text=Täytä Lomake
     Get Text  body  *=  Luo uusi artikkeli
 
-Creating an article with correct fields succeeds
-    Create Article
-    Creation Should Succeed
-    Home Page Should Be Open
-
-An article cannot be created without required fields
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=entry_type  label  article
-    Click  button >> text=Täytä Lomake
-    Create Article Page Should Be Open
-    Set Title  test title
-    Set Journal  test journal
-    Set Pages  12-100
-    Click  button >> text=Luo
-    Create Article Page Should Be Open
-
-Creating an article fails with incorrect fields
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=entry_type  label  article
-    Click  button >> text=Täytä Lomake
-    Create Article Page Should Be Open
-    Set Title  test title
-    Set Author  test author
-    Set Journal  test journal
-    Set Pages  12-0
-    Click  button >> text=Luo
-    Creation Should Fail With Message  Virheelliset sivunumerot.
-
-Creating an inproceedings with correct fields succeeds
-    Create Inproceedings
-    Creation Should Succeed
-    Home Page Should Be Open
-
-Inproceedings cannot be created without required fields
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=entry_type  label  inproceedings
-    Click  button >> text=Täytä Lomake
-    Create Inproceedings Page Should Be Open
-    Set Title  test title
-    Set Pages  12-100
-    Click  button >> text=Luo
-    Create Inproceedings Page Should Be Open
-
-Creating inproceedings fails with incorrect fields
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=entry_type  label  inproceedings
-    Click  button >> text=Täytä Lomake
-    Create Inproceedings Page Should Be Open
-    Set Title  test title
-    Set Author  test author
-    Set Booktitle  test booktitle
-    Set Year  1900
-    Set Pages  12-0
-    Click  button >> text=Luo
-    Creation Should Fail With Message  Virheelliset sivunumerot.
-
 When a citation exists deleting a citation succeeds
     Handle Future Dialogs  action=accept
-    Create Article
+    Create New Citation
     Click  id=delete-button
     Click  button >> text=Poista
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
 
 *** Keywords ***
-Creation Should Succeed
-    Home Page Should Be Open
-    Get Text  body  *=  Viite luotu.
-
-Creation Should Fail With Message
-    [Arguments]  ${message}
-    Get Text  body  *=  ${message}
-
-Create Article
+Create New Citation
     Go To  ${NEW_CITATION_URL}
     Create Citation Page Should Be Open
     Select Options By  id=entry_type  label  article
     Click  button >> text=Täytä Lomake
-    Create Article Page Should Be Open
     Set Title  test title
     Set Author  test author
     Set Journal  test journal
     Set Year  1900
     Click  button >> text=Luo
-
-Create Inproceedings
-    Go To  ${NEW_CITATION_URL}
-    Create Citation Page Should Be Open
-    Select Options By  id=entry_type  label  inproceedings
-    Click  button >> text=Täytä Lomake
-    Create Inproceedings Page Should Be Open
-    Set Title  test title
-    Set Author  test author
-    Set Booktitle  test booktitle
-    Set Year  1900
-    Click  button >> text=Luo
-
-Set Title
-    [Arguments]  ${title}
-    Fill Text  id=title  ${title}
-
-Set Author
-    [Arguments]  ${author}
-    Fill Text  id=author  ${author}
-
-Set Year
-    [Arguments]  ${year}
-    Fill Text  id=year  ${year}
-
-Set Journal
-    [Arguments]  ${journal}
-    Fill Text  id=journal  ${journal}
-
-Set Booktitle
-    [Arguments]  ${booktitle}
-    Fill Text  id=booktitle  ${booktitle}
-
-Set Pages
-    [Arguments]  ${pages}
-    Fill Text  id=pages  ${pages}
-
-Create Article Page Should Be Open
-    Get Title  ==  Luo uusi artikkeli
-
-Create Inproceedings Page Should Be Open
-    Get Title  ==  Luo uusi konferenssiartikkeli

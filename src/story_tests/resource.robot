@@ -2,12 +2,13 @@
 Library  Browser
 
 *** Variables ***
-${SERVER}     localhost:5001
-${DELAY}      500ms
-${HOME_URL}   http://${SERVER}
-${RESET_URL}  http://${SERVER}/reset_db
-${BROWSER}    chromium
-${HEADLESS}   false
+${SERVER}             localhost:5001
+${DELAY}              500ms
+${HOME_URL}           http://${SERVER}
+${RESET_URL}          http://${SERVER}/reset_db
+${NEW_CITATION_URL}   http://${SERVER}/new_citation
+${BROWSER}            chromium
+${HEADLESS}           false
 
 *** Keywords ***
 Open And Configure Browser
@@ -28,3 +29,35 @@ Create Citation Page Should Be Open
 Home Page Should Be Open
     Get Title  ==  Viitteidenhallintajärjestelmä
     Get Text  body  *=  Etusivu
+
+Creation Should Succeed
+    Home Page Should Be Open
+    Get Text  body  *=  Viite luotu.
+
+Creation Should Fail With Message
+    [Arguments]  ${message}
+    Get Text  body  *=  ${message}
+
+Set Title
+    [Arguments]  ${title}
+    Fill Text  id=title  ${title}
+
+Set Author
+    [Arguments]  ${author}
+    Fill Text  id=author  ${author}
+
+Set Year
+    [Arguments]  ${year}
+    Fill Text  id=year  ${year}
+
+Set Journal
+    [Arguments]  ${journal}
+    Fill Text  id=journal  ${journal}
+
+Set Booktitle
+    [Arguments]  ${booktitle}
+    Fill Text  id=booktitle  ${booktitle}
+
+Set Pages
+    [Arguments]  ${pages}
+    Fill Text  id=pages  ${pages}

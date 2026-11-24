@@ -125,8 +125,5 @@ class CitationValidator:
     def _validate_organization(self, value):
         self._validate_text(value)
 
-    def _validate_howpublished(self, value):
-        self._validate_text(value)
-
     def _validate_publisher(self, value):
         self._validate_text(value)
