@@ -38,7 +38,9 @@ class Article:
 class Inproceedings:
     def __init__(self, form):
         self._required_fields = ["author", "title", "booktitle", "year"]
-        self._optional_fields = ["editor", "volume", "number", "series", "pages", "month", "address", "organization", "publisher", "note", "annote"]
+        self._optional_fields = ["editor", "volume", "number", "series",
+                                 "pages", "month", "address", "organization",
+                                 "publisher", "note", "annote"]
         self._validator = CitationValidator(self._required_fields, self._optional_fields)
         self._validator.validate(form)
 
