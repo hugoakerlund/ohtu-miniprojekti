@@ -51,7 +51,8 @@ def setup_db():
 
 def seed_table_entry_types():
     entry_types = [
-            "article"
+            "article",
+            "inproceedings"
             ]
 
     for entry_type in entry_types:

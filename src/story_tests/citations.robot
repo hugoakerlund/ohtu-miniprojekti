@@ -50,6 +50,36 @@ Creating an article fails with incorrect fields
     Click  button >> text=Luo
     Creation Should Fail With Message  Virheelliset sivunumerot.
 
+Creating an inproceedings with correct fields succeeds
+    Create Inproceedings
+    Creation Should Succeed
+    Home Page Should Be Open
+
+Inproceedings cannot be created without required fields
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=entry_type  label  inproceedings
+    Click  button >> text=Täytä Lomake
+    Create Inproceedings Page Should Be Open
+    Set Title  test title
+    Set Pages  12-100
+    Click  button >> text=Luo
+    Create Inproceedings Page Should Be Open
+
+Creating inproceedings fails with incorrect fields
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=entry_type  label  inproceedings
+    Click  button >> text=Täytä Lomake
+    Create Inproceedings Page Should Be Open
+    Set Title  test title
+    Set Author  test author
+    Set Booktitle  test booktitle
+    Set Year  1900
+    Set Pages  12-0
+    Click  button >> text=Luo
+    Creation Should Fail With Message  Virheelliset sivunumerot.
+
 When a citation exists deleting a citation succeeds
     Handle Future Dialogs  action=accept
     Create Article
@@ -78,6 +108,18 @@ Create Article
     Set Year  1900
     Click  button >> text=Luo
 
+Create Inproceedings
+    Go To  ${NEW_CITATION_URL}
+    Create Citation Page Should Be Open
+    Select Options By  id=entry_type  label  inproceedings
+    Click  button >> text=Täytä Lomake
+    Create Inproceedings Page Should Be Open
+    Set Title  test title
+    Set Author  test author
+    Set Booktitle  test booktitle
+    Set Year  1900
+    Click  button >> text=Luo
+
 Set Title
     [Arguments]  ${title}
     Fill Text  id=title  ${title}
@@ -94,9 +136,16 @@ Set Journal
     [Arguments]  ${journal}
     Fill Text  id=journal  ${journal}
 
+Set Booktitle
+    [Arguments]  ${booktitle}
+    Fill Text  id=booktitle  ${booktitle}
+
 Set Pages
     [Arguments]  ${pages}
     Fill Text  id=pages  ${pages}
 
 Create Article Page Should Be Open
     Get Title  ==  Luo uusi artikkeli
+
+Create Inproceedings Page Should Be Open
+    Get Title  ==  Luo uusi konferenssiartikkeli

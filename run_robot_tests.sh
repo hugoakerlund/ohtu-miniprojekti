@@ -2,6 +2,8 @@
 
 echo "Running tests"
 
+export TEST_ENV=true
+
 # luodaan tietokanta
 uv run python src/db_helper.py
 

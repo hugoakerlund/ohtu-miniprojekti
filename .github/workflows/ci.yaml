@@ -29,6 +29,6 @@ jobs:
       - name: Run linter
         run: uv run pylint src
       - name: Install Playwright browser
-        run: uv run rfbrowser install --with-deps chromium
+        run: uv run rfbrowser init --with-deps chromium
       - name: Run robot tests
         run: bash run_robot_tests.sh

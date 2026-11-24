@@ -17,6 +17,12 @@ class CitationValidator:
                 "note": self._validate_note,
                 "annote": self._validate_annote,
                 "howpublished": self._validate_howpublished,
+                "booktitle": self._validate_booktitle,
+                "editor": self._validate_editor,
+                "series": self._validate_series,
+                "address": self._validate_address,
+                "organization": self._validate_organization,
+                "publisher": self._validate_publisher,
                 }
         self._required_fields = required_fields
         self._optional_fields = optional_fields
@@ -102,4 +108,25 @@ class CitationValidator:
         self._validate_text(value)
 
     def _validate_howpublished(self, value):
+        self._validate_text(value)
+
+    def _validate_booktitle(self, value):
+        self._validate_text(value)
+
+    def _validate_editor(self, value):
+        self._validate_text(value)
+
+    def _validate_series(self, value):
+        self._validate_text(value)
+
+    def _validate_address(self, value):
+        self._validate_text(value)
+
+    def _validate_organization(self, value):
+        self._validate_text(value)
+
+    def _validate_howpublished(self, value):
+        self._validate_text(value)
+
+    def _validate_publisher(self, value):
         self._validate_text(value)

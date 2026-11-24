@@ -3,11 +3,11 @@ from config import db
 
 ALL_FIELDS = """entry_type, author, title, journal, year,
                 volume, number, pages, month, note, annote,
-                howpublished"""
+                howpublished, editor, series, address, organization, publisher"""
 
 ALL_VALUES =  """:entry_type, :author, :title, :journal, :year,
                  :volume, :number, :pages, :month, :note, :annote,
-                 :howpublished"""
+                 :howpublished, :editor, :series, :address, :organization, :publisher"""
 
 def get_citations():
     sql = f"""SELECT id, {ALL_FIELDS} FROM citations"""

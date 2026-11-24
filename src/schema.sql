@@ -15,7 +15,13 @@ CREATE TABLE citations (
   number TEXT,
   pages TEXT,
   month TEXT,
+  booktitle TEXT,
   note TEXT,
   annote TEXT,
-  howpublished TEXT
+  howpublished TEXT,
+  editor TEXT,
+  series TEXT,
+  address TEXT,
+  organization TEXT,
+  publisher TEXT
 );
