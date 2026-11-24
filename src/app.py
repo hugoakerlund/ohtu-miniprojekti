@@ -3,7 +3,8 @@ from db_helper import reset_db
 from repositories.citation_repository import get_citations, get_entry_types, \
      create_citation, delete_citation, find_citation
 from config import app, test_env
-from util import UserInputError, validate_citation, get_citation
+from util import UserInputError, get_citation
+from entities.citation import Citation
 
 @app.route("/")
 def index():
@@ -24,8 +25,8 @@ def choose_citation_type():
 def citation_creation():
     form = get_citation(request)
     try:
-        validate_citation(form)
-        create_citation(form)
+        citation = Citation(form)
+        create_citation(citation.get_fields())
         flash("Viite luotu.", "success")
         return redirect("/")
     except UserInputError as error:
