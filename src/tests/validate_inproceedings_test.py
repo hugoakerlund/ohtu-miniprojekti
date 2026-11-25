@@ -25,24 +25,23 @@ class TestInproceedingsValidation(unittest.TestCase):
 
     def test_inproceedings_passes(self):
         try:
-            citation = Citation(self.inproceedings_form)
+            Citation(self.inproceedings_form)
         except UserInputError:
             self.fail("Citation raised exception unexpectedly.")
 
     def test_inproceedings_without_required_fields_raises_error(self):
-        with self.assertRaises(UserInputError):
-            self.inproceedings_form["author"] = ""
-            self.inproceedings_form["title"] = ""
-            self.inproceedings_form["booktitle"] = ""
-            self.inproceedings_form["year"] = ""
-            citation = Citation(self.inproceedings_form)
+        for field in ("author", "title", "booktitle", "year"):
+            with self.subTest(field=field), self.assertRaises(UserInputError):
+                form = self.inproceedings_form.copy()
+                form[field] = "   "
+                Citation(form)
 
     def test_inproceedings_with_non_numeric_volume_raises_error(self):
         with self.assertRaises(UserInputError):
             self.inproceedings_form["volume"] = " a1b2  "
-            citation = Citation(self.inproceedings_form)
+            Citation(self.inproceedings_form)
 
     def test_inproceedings_with_whitespace_note_raises_error(self):
         with self.assertRaises(UserInputError):
             self.inproceedings_form["note"] = "   "
-            citation = Citation(self.inproceedings_form)
+            Citation(self.inproceedings_form)

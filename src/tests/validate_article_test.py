@@ -20,7 +20,7 @@ class TestArticleValidation(unittest.TestCase):
 
     def test_article_passes(self):
         try:
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
         except UserInputError:
             self.fail("Citation raised exception unexpectedly.")
 
@@ -30,23 +30,23 @@ class TestArticleValidation(unittest.TestCase):
             self.article_form["title"] = ""
             self.article_form["year"] = ""
             self.article_form["journal"] = ""
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
     def test_article_incorrect_entry_type_causes_error(self):
         with self.assertRaises(UserInputError):
             self.article_form["entry_type"] = "INCORRECT"
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
     def test_article_with_too_long_fields_causes_error(self):
         with self.assertRaises(UserInputError):
             long_title = "a" * 101
             self.article_form["title"] = long_title
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
     def test_article_with_incorrect_year_causes_error(self):
         with self.assertRaises(UserInputError):
             self.article_form["year"] = "abc"
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
         self.article_form["year"] = "2000"
         self.test_article_passes()
@@ -54,7 +54,7 @@ class TestArticleValidation(unittest.TestCase):
     def test_article_with_incorrect_month_causes_error(self):
         with self.assertRaises(UserInputError):
             self.article_form["month"] = "abc"
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
         self.article_form["month"] = "2"
         self.test_article_passes()
@@ -62,7 +62,7 @@ class TestArticleValidation(unittest.TestCase):
     def test_article_with_incorrect_pages_causes_error(self):
         with self.assertRaises(UserInputError):
             self.article_form["pages"] = "abc"
-            citation = Citation(self.article_form)
+            Citation(self.article_form)
 
         self.article_form["pages"] = "10-100"
         self.test_article_passes()
