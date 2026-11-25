@@ -46,6 +46,18 @@ Set Author
     [Arguments]  ${author}
     Fill Text  id=author  ${author}
 
+Set Editor
+    [Arguments]  ${editor}
+    Fill Text  id=editor  ${editor}
+
+Set Publisher
+    [Arguments]  ${publisher}
+    Fill Text  id=publisher  ${publisher}
+
+Set Volume
+    [Arguments]  ${volume}
+    Fill Text  id=volume  ${volume}
+
 Set Year
     [Arguments]  ${year}
     Fill Text  id=year  ${year}
