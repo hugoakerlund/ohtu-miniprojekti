@@ -25,10 +25,10 @@ class Citation:
 
 
 def import_doi_reference(doi: str) -> Citation:
-	"""Fetch a DOI from Crossref and split its metadata into a Citation.
-
-	Accepts either a bare DOI or a doi.org URL. Raises ValueError for invalid
-	or unknown DOIs and RuntimeError when the metadata service is unavailable.
+	"""
+	Fetches information from Crossref and returns it as Citation class boject.
+	Accepts either a DOI string or DOI URL.
+	Raises a bunch of errors if the DOI is invalind of something is fuggy with internet
 	"""
 	normalized_doi = re.sub(
 		r"^https?://(?:dx\.)?doi\.org/", "", doi.strip(), flags=re.IGNORECASE
@@ -59,6 +59,7 @@ def import_doi_reference(doi: str) -> Citation:
 		" ".join(value for value in (person.get("given"), person.get("family")) if value)
 		for person in record.get("author", [])
 	]
+	# Return a Citation object with the normalized metadata
 	return Citation(
 		authors=authors,
 		title=(record.get("title") or [""])[0],
