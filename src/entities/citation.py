@@ -5,6 +5,7 @@ class Citation:
     def __init__(self, form):
         self._entry_types = {
                 "article": Article,
+                "book": Book,
                 "inproceedings": Inproceedings
                 }
 
@@ -26,6 +27,19 @@ class Article:
     def __init__(self, form):
         self._required_fields = ["author", "title", "journal", "year"]
         self._optional_fields = ["volume", "number", "pages", "month", "note", "annote"]
+        self._validator = CitationValidator(self._required_fields, self._optional_fields)
+        self._validator.validate(form)
+
+    def get_fields(self):
+        return self._validator.get_validated_fields()
+
+    def generate_bibtex(self):
+        pass
+
+class Book:
+    def __init__(self, form):
+        self._required_fields = ["author", "editor", "title", "publisher", "year"]
+        self._optional_fields = ["volume", "number", "pages", "month", "note"]
         self._validator = CitationValidator(self._required_fields, self._optional_fields)
         self._validator.validate(form)
 
