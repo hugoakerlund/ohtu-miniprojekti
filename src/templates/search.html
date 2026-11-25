@@ -14,7 +14,9 @@ body %}
 
 {% for citation in results %}
 
-<p>{{ citation.author }}: {{ citation.title }}</p>
+<p>
+  <a href="/citation/{{ citation.id }}">{{ citation.author }}: {{ citation.title }} ({{ citation.type }})</a>
+</p>
 
 {% endfor %}
 {% endif %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %} {% block title %} Viitteidenhallintajärjestelmä {% endblock %} {% block body %}
+
+<h2>{{ citation.author }}: {{ citation.title }}</h2>
+
+<p>
+{{ citation.type }}
+</p>
+<p>
+{{ citation.title }}
+</p>
+<p>
+Written by {{ citation.author }}
+</p>
+<p>
+Published {{ citation.month }}/{{ citation.year }}
+</p>
+<p>
+Address: {{ citation.address or "" }}
+</p>
+<p>
+{{ citation.howpublished or "" }}
+</p>
+<p>
+Publisher: {{ citation.publisher or "" }}
+</p>
+<p>
+Edition: {{ citation.edition or "" }}
+</p>
+<p>
+Pages: {{ citation.pages or "" }}
+</p>
+
+{% endblock %}

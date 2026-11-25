@@ -28,6 +28,11 @@ def citaton_creation():
         flash(str(error), "error")
         return  redirect("/new_citation")
 
+@app.route("/citation/<int:citation_id>")
+def show_citation(citation_id):
+    citation = citations.get_citation(citation_id)
+    return render_template("citation.html", citation=citation)
+
 @app.route("/search")
 def search():
     query = request.args.get("query")

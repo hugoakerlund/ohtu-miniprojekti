@@ -26,7 +26,9 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
 
   {% for citation in citations %}
   <tr>
-    <td>{{ citation.title }}</td>
+    <td>
+      <a href="/citation/{{ citation.id }}">{{ citation.title }}</a>
+    </td>
     <td>{{ citation.type }}</td>
     <td>{{ citation.author }}</td>
     <td>{{ citation.howpublished or "" }}</td>
