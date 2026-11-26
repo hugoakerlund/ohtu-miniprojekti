@@ -22,22 +22,34 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
     return false;
   }
 
-  function updateDeleteButton()  {
+  function hideButtons(buttons) {
+    for (let i = 0; i < buttons.length; ++i) {
+      buttons[i].style.visibility = "hidden";
+    }
+  }
+
+  function showButtons(buttons) {
+    for (let i = 0; i < buttons.length; ++i) {
+      buttons[i].style.visibility = "visible";
+    }
+  }
+
+  function updateButtons()  {
     let checkedBoxes = document.getElementsByClassName("checkbox")
-    let deleteButton = document.getElementById("submit")
+    let buttons = document.getElementsByClassName("button")
     for (let i = 0; i < checkedBoxes.length; ++i) {
       if (checkedBoxes[i].checked) {
-        deleteButton.style.visibility = "visible";
+        showButtons(buttons)
         return;
       }
       else {
-        deleteButton.style.visibility = "hidden";
+        hideButtons(buttons)
       }
     }
   }
 </script>
 
-<form action="/delete_citations" method="post" onsubmit="return promptPooki();">
+<form method="post" onsubmit="return promptPooki();">
   <table class="citation-table">
     <tr>
       <th>Otsikko</th>
@@ -48,7 +60,7 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
       <th>Vuosikerta</th>
       <th>Numero</th>
       <th>Sivut</th>
-      <th>Poista</th>
+      <th>Valitse</th>
     </tr>
 
     {% for citation in citations %}
@@ -62,19 +74,20 @@ Järjestelmässä on tällä hetkellä viitteitä {{ citations | count }} kpl. <
       <td>{{ citation.number or "" }}</td>
       <td>{{ citation.pages or "" }}</td>
       <td>
-        <input class="checkbox" type="checkbox" name="{{ citation.id }}" id="delete-button" onclick="updateDeleteButton()">
+        <input class="checkbox" type="checkbox" name="{{ citation.id }}" id="choose-button" onclick="updateButtons()">
       </td>
     </tr>
     {% endfor %}
 
   </table>
 
-  <button id="submit" type="submit">Poista</button>
+  <button class="button" formaction="/delete_citations" id="submit" type="submit">Poista</button>
+  <button class="button" formaction="/export_citations" id="submit" type="submit">Vie</button>
 
 </form>
 
 <script>
-  updateDeleteButton();
+  updateButtons();
 </script>
 
 {% endif %}

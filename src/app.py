@@ -42,6 +42,13 @@ def citation_deletion():
         flash(f"Poistettu onnistuneesti {len(citations)} viitettä.", "success")
     return redirect("/")
 
+@app.route("/export_citations", methods=["POST"])
+def citation_export():
+    citations = list(request.form)
+    print("exporting citations", citations)
+
+    return redirect("/")
+
 @app.route("/search")
 def search():
     query = request.args.get("query")
