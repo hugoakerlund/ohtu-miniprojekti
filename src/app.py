@@ -58,3 +58,15 @@ if test_env:
     def reset_database():
         reset_db()
         return jsonify({ 'message': "db reset" })
+
+# To use this route you have to know and use the citation's database id after my_test_page/
+@app.route("/my_test_page/<int:citation_id>")
+def my_test_page(citation_id):
+    # get all citations from the database, in a form of a list of dictionaries
+    all_citations = get_citations()
+    # pick the single dictionary where the id matches the citation_id
+    citation = next((c for c in all_citations if c["id"] == citation_id), None)
+    if not citation:
+        return "Citation not found", 404
+    # the whole dictionary is passed to the template.
+    return render_template("my_test_page.html", citation=citation)

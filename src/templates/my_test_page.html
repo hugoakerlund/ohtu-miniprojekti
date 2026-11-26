@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}My Test Page{% endblock %}
+
+{% block body %}
+<!-- all data of a single citation fetched by it's ID -->
+{% if citation %}
+    {{ citation.title }}
+    {% for key, attribute in citation.items() %}
+        {{ key }}: {{ attribute }}<br>
+    {% endfor %}
+{% else %}
+    <p>Citation not found.</p>
+{% endif %}
+{% endblock %}
