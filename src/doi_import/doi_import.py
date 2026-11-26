@@ -8,6 +8,11 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+'''
+Hey handsome, this class already exists in the codebase, use that instead.
+TODO: src/repositories/citation_repository.py has ALL_FIELDS that can be used to 
+create a citation object.
+'''
 
 # pylint: disable=too-many-instance-attributes
 @dataclass
@@ -24,7 +29,7 @@ class Citation:
     doi: str
     url: str | None
 
-
+# This looks needlessly complex but it simply validates the DOI format and removes the URL part.
 def _normalize_doi(doi: str) -> str:
     normalized_doi = re.sub(
         r"^https?://(?:dx\.)?doi\.org/", "", doi.strip(), flags=re.IGNORECASE
@@ -33,7 +38,7 @@ def _normalize_doi(doi: str) -> str:
         raise ValueError("Please provide a valid DOI")
     return normalized_doi
 
-
+# Error handling
 def _raise_crossref_error(exc: Exception, doi: str) -> NoReturn:
     if isinstance(exc, HTTPError):
         if exc.code == 404:
@@ -43,7 +48,7 @@ def _raise_crossref_error(exc: Exception, doi: str) -> NoReturn:
         raise RuntimeError("Could not retrieve DOI metadata from Crossref") from exc
     raise RuntimeError("Crossref returned invalid DOI metadata") from exc
 
-
+# Takes care of fetching over network and parsing.
 def _fetch_crossref_record(doi: str) -> dict[str, Any]:
     request = Request(
         "https://api.crossref.org/works/" + quote(doi, safe="/"),
@@ -55,7 +60,9 @@ def _fetch_crossref_record(doi: str) -> dict[str, Any]:
     except (HTTPError, URLError, TimeoutError, json.JSONDecodeError, KeyError) as exc:
         _raise_crossref_error(exc, doi)
 
-
+# Creates the Citation object from record and original doi.
+# Record is a dict with metadata
+# It is used here instead of a normal dictionary because it's what the Crossref API returns.
 def _citation_from_record(record: dict[str, Any], doi: str) -> Citation:
     publication = (
         record.get("published-print")
@@ -80,7 +87,7 @@ def _citation_from_record(record: dict[str, Any], doi: str) -> Citation:
         url=record.get("URL"),
     )
 
-
+# Main function to be called from other modules
 def import_doi_reference(doi: str) -> Citation:
     """
     Fetch metadata from Crossref for a DOI string or DOI URL.
@@ -88,6 +95,8 @@ def import_doi_reference(doi: str) -> Citation:
     Raises ValueError for invalid or unknown DOIs and RuntimeError when
     Crossref cannot provide valid metadata.
     """
+    # Record is a dict with metadata
+    # It is used here instead of a normal dictionary because it's what the Crossref API returns.
     normalized_doi = _normalize_doi(doi)
     record = _fetch_crossref_record(normalized_doi)
     return _citation_from_record(record, normalized_doi)
