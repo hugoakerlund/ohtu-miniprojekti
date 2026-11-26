@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, jsonify, flash
+from flask import redirect, render_template, request, jsonify, flash, send_file
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, get_entry_types, \
      create_citation, delete_citation, find_citation
@@ -46,8 +46,8 @@ def citation_deletion():
 def citation_export():
     citations = list(request.form)
     print("exporting citations", citations)
-
-    return redirect("/")
+    path = './app.py'
+    return send_file(path, as_attachment=True)
 
 @app.route("/search")
 def search():
