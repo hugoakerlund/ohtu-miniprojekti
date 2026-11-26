@@ -27,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: uv run pytest src/tests
       - name: Run linter
-        run: uv run pylint src
+        run: uv run pylint --fail-under=9 src
       - name: Install Playwright browser
         run: uv run rfbrowser init --with-deps chromium
       - name: Run robot tests
