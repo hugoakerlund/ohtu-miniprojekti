@@ -24,7 +24,7 @@ class Citation:
 
         lines = []
         for key, value in fields.items():
-            if value and len(value) > 0:
+            if key != "entry_type" and value and len(value) > 0:
                 lines.append(indent + str(key) + " = " + f"\"{value}\"")
         joined_lines = ",\n".join(lines)
 
