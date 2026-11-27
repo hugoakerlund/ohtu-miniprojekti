@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from util import UserInputError
 
@@ -56,30 +57,33 @@ class CitationValidator:
         for required_field in self._required_fields:
             if required_field not in form:
                 raise UserInputError(f"Kenttä {required_field} on pakollinen.")
-            self._validate_field(required_field, form[required_field])
-            self._validated_fields[required_field] = form[required_field]
+            validated_field = self._validate_field(required_field, form[required_field])
+            self._validated_fields[required_field] = validated_field
 
     def _validate_optional_fields(self, form):
         for optional_field in self._optional_fields:
             if form[optional_field]:
-                self._validate_field(optional_field, form[optional_field])
-            self._validated_fields[optional_field] = form[optional_field]
+                validated_field = self._validate_field(optional_field, form[optional_field])
+                self._validated_fields[optional_field] = validated_field
+            else:
+                self._validated_fields[optional_field] = ""
 
     def _validate_field(self, field, value):
-        self._field_to_validator[field](value)
+        return self._field_to_validator[field](value)
 
     def _validate_text(self, value):
         if value and not value.strip():
             raise UserInputError("Kenttä ei voi olla tyhjä.")
+        return value.strip()
 
     def _validate_author(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_title(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_journal(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_year(self, value):
         if not value.isdigit():
@@ -88,20 +92,32 @@ class CitationValidator:
         year = int(value)
         if year > datetime.now().year or year < 0:
             raise UserInputError("Virheellinen julkaisuvuosi.")
+        return value
 
     def _validate_volume(self, value):
         if not value.isdigit():
             raise UserInputError("Vuosikerran on oltava numeerinen.")
+        return value
 
     def _validate_number(self, value):
         if not value.isdigit():
             raise UserInputError("Numeron on oltava numeerinen.")
+        return value
 
     def _validate_pages(self, value):
-        pages = value.split("-")
-        if not len(pages) == 2 or not pages[0].isdigit() or not pages[1].isdigit() \
-                or int(pages[0]) > int(pages[1]):
-            raise UserInputError("Virheelliset sivunumerot.")
+        sections = []
+        for section in value.split(","):
+            section = section.strip()
+            match = re.fullmatch(r"([0-9]+)(?:\s*--\s*([0-9]+))?", section)
+
+            if not match:
+                raise UserInputError("Virheelliset sivunumerot.")
+
+            start, end = match.groups()
+            if end is not None and int(start) > int(end):
+                raise UserInputError("Virheelliset sivunumerot.")
+            sections.append(section)
+        return ",".join(sections)
 
     def _validate_month(self, value):
         if not value.isdigit():
@@ -110,30 +126,31 @@ class CitationValidator:
         month = int(value)
         if month < 1 or month > 12:
             raise UserInputError("Virheellinen julkaisukuukausi.")
+        return value
 
     def _validate_note(self, value):
-        self._validate_text(value)
+        return  self._validate_text(value)
 
     def _validate_annote(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_howpublished(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_booktitle(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_editor(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_series(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_address(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_organization(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)
 
     def _validate_publisher(self, value):
-        self._validate_text(value)
+        return self._validate_text(value)

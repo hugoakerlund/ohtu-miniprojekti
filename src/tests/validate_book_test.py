@@ -56,7 +56,7 @@ class TestBookValidation(unittest.TestCase):
                 Citation(form)
 
     def test_book_with_invalid_pages_raises_error(self):
-        for pages in ("abc", "10", "20-10", "1-a"):
+        for pages in ("abc", "1b", "20-10", "1-a"):
             with self.subTest(pages=pages), self.assertRaises(UserInputError):
                 form = self.book_form.copy()
                 form["pages"] = pages

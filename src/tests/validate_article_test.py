@@ -64,5 +64,21 @@ class TestArticleValidation(unittest.TestCase):
             self.article_form["pages"] = "abc"
             Citation(self.article_form)
 
-        self.article_form["pages"] = "10-100"
+            self.article_form["pages"] = "1,  10--9"
+            Citation(self.article_form)
+
+    def test_article_with_different_correct_page_entries_succeeds(self):
+        self.article_form["pages"] = "1,2,3,4,5,6"
+        self.test_article_passes()
+
+        self.article_form["pages"] = "1--2,3--4,5--6"
+        self.test_article_passes()
+
+        self.article_form["pages"] = "2, 10--100"
+        self.test_article_passes()
+
+        self.article_form["pages"] = "2,     10--100,    101"
+        self.test_article_passes()
+
+        self.article_form["pages"] = "1--2, 10, 3--4,5--6"
         self.test_article_passes()

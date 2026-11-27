@@ -32,7 +32,7 @@ class TestBibtexGeneration(unittest.TestCase):
     def test_generating_bibtex_with_all_fields_succeeds(self):
         self.article_form["volume"] = "1"
         self.article_form["number"] = "1"
-        self.article_form["pages"] = "1-10"
+        self.article_form["pages"] = "1--10"
         self.article_form["month"] = "1"
         self.article_form["note"] = "note"
         self.article_form["annote"] = "annote"
@@ -44,7 +44,7 @@ class TestBibtexGeneration(unittest.TestCase):
                      '  year    = {1900},\n'
                      '  volume  = {1},\n'
                      '  number  = {1},\n'
-                     '  pages   = {1-10},\n'
+                     '  pages   = {1--10},\n'
                      '  month   = {1},\n'
                      '  note    = {note},\n'
                      '  annote  = {annote}\n'
@@ -85,7 +85,7 @@ class TestBibtexGeneration(unittest.TestCase):
 
     def test_fields_appear_in_input_order(self):
         self.article_form["volume"] = "2"
-        self.article_form["pages"] = "10-20"
+        self.article_form["pages"] = "10--20"
 
         result = Citation(self.article_form).generate_bibtex()
 
@@ -107,4 +107,17 @@ class TestBibtexGeneration(unittest.TestCase):
 
         self.assertNotIn("note", result)
         self.assertNotIn("volume", result)
+
+    def test_whitespace_between_pages_gets_stripped_out(self):
+        self.article_form["pages"] = "1,   20,   30"
+        result = Citation(self.article_form).generate_bibtex()
+        self.assertIn('  pages   = {1,20,30}\n', result)
+
+        self.article_form["pages"] = "1,   100--23333,         30"
+        result = Citation(self.article_form).generate_bibtex()
+        self.assertIn('  pages   = {1,100--23333,30}\n', result)
+
+        self.article_form["pages"] = "33,  1,  5--10,    30"
+        result = Citation(self.article_form).generate_bibtex()
+        self.assertIn('  pages   = {33,1,5--10,30}\n', result)
 
