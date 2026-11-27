@@ -2,6 +2,7 @@ import os
 from entities.citation import Citation
 from repositories.citation_repository import get_citation_by_id
 
+
 def export_citations(citations, path):
     bibtex_contents = []
     for citation_id in citations:

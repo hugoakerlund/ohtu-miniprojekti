@@ -1,9 +1,8 @@
-import os
 from flask import redirect, render_template, request, jsonify, flash, send_file
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, get_entry_types, \
      create_citation, delete_citation, find_citation
-from config import app, test_env
+from config import app, test_env, export_dir
 from util import UserInputError, get_citation_form
 from export import export_citations
 from entities.citation import Citation
@@ -48,8 +47,7 @@ def citation_deletion():
 def citation_export():
     citations = list(request.form)
     file_name = "citations.bibtex"
-    directory = "exports"
-    path = os.path.join(app.instance_path, directory, file_name)
+    path = export_dir + "/" + file_name
     try:
         export_citations(citations, path)
         return send_file(path, as_attachment=True)
