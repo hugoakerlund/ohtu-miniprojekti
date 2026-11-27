@@ -2,8 +2,6 @@ import re
 from datetime import datetime
 from util import UserInputError
 
-MAX_FIELD_LENGTH = 100
-
 class CitationValidator:
     def __init__(self, required_fields, optional_fields):
         self._field_to_validator = {
@@ -25,18 +23,36 @@ class CitationValidator:
                 "organization": self._validate_organization,
                 "publisher": self._validate_publisher,
                 }
+        self._field_length_limit = {
+                "author": 5000,
+                "title": 2000,
+                "journal": 500,
+                "year": 4,
+                "volume": 100,
+                "number": 100,
+                "pages": 100,
+                "month": 2,
+                "note": 5000,
+                "annote": 10000,
+                "howpublished": 1000,
+                "booktitle": 1000,
+                "editor": 5000,
+                "series": 1000,
+                "address": 500,
+                "organization": 1000,
+                "publisher": 1000,
+                }
         self._required_fields = required_fields
         self._optional_fields = optional_fields
         self._validated_fields = {field: "" for field in self._field_to_validator.keys()}
 
-    def validate(self, form):
-        form = self._convert_to_str(form)
-        self._validate_field_lengths(form)
-        self._validate_required_fields(form)
-        self._validate_optional_fields(form)
-
     def get_validated_fields(self):
         return self._validated_fields
+
+    def validate(self, form):
+        form = self._convert_to_str(form)
+        self._validate_required_fields(form)
+        self._validate_optional_fields(form)
 
     def _convert_to_str(self, form):
         result = {}
@@ -46,12 +62,6 @@ class CitationValidator:
             else:
                 result[key] = value
         return result
-
-    def _validate_field_lengths(self, form):
-        for key, value in form.items():
-            if value and len(value) > MAX_FIELD_LENGTH:
-                raise UserInputError(f"Kentän {key} maksimipituus on {MAX_FIELD_LENGTH} merkkiä.")
-
 
     def _validate_required_fields(self, form):
         for required_field in self._required_fields:
@@ -65,11 +75,16 @@ class CitationValidator:
             if form[optional_field]:
                 validated_field = self._validate_field(optional_field, form[optional_field])
                 self._validated_fields[optional_field] = validated_field
-            else:
-                self._validated_fields[optional_field] = ""
 
     def _validate_field(self, field, value):
+        self._validate_field_length(field, value)
         return self._field_to_validator[field](value)
+
+    def _validate_field_length(self, field, value):
+        max_length = self._field_length_limit[field]
+        if len(value) > max_length:
+            raise UserInputError(f"Kentän {field} maksimipituus on {max_length} merkkiä.")
+
 
     def _validate_text(self, value):
         if value and not value.strip():

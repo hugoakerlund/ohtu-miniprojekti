@@ -39,9 +39,19 @@ class TestArticleValidation(unittest.TestCase):
 
     def test_article_with_too_long_fields_causes_error(self):
         with self.assertRaises(UserInputError):
-            long_title = "a" * 101
+            long_title = "a" * 5000
             self.article_form["title"] = long_title
             Citation(self.article_form)
+
+    def test_article_with_a_large_number_of_authors_succeeds(self):
+        self.article_form["author"] = """Charles R. Harris, K. Jarrod Millman, Stéfan J. van der Walt, Ralf
+                                         Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, Julian Taylor,
+                                         Sebastian Berg, Nathaniel J. Smith, Robert Kern, Matti Picus, Stephan
+                                         Hoyer, Marten H. van Kerkwijk, Matthew Brett, Allan Haldane, Jaime
+                                         Fernández del Río, Mark Wiebe, Pearu Peterson, Pierre Gérard-Marchant,
+                                         Kevin Sheppard, Tyler Reddy, Warren Weckesser, Hameer Abbasi, Christoph
+                                         Gohlke & Travis E. Oliphant"""
+        self.test_article_passes()
 
     def test_article_with_incorrect_year_causes_error(self):
         with self.assertRaises(UserInputError):

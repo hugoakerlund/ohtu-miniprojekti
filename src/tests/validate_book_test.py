@@ -78,5 +78,5 @@ class TestBookValidation(unittest.TestCase):
     def test_book_with_too_long_field_raises_error(self):
         with self.assertRaises(UserInputError):
             form = self.book_form.copy()
-            form["title"] = "a" * 101
+            form["title"] = "a" * 5000
             Citation(form)
