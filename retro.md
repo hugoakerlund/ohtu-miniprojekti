@@ -1,6 +1,6 @@
 ## Retrospektiivi
 
-Sprintin 1. retrospektiivi
+## Sprintin 1. retrospektiivi
 (muistiinpanoja):
 
 Aloittaa:
@@ -28,6 +28,34 @@ Vähemmän:
 - 
 
 Parannuskohteet:
+1. Tasaisempi työjako saavutetaan noudattamalla Backlogien työjakoa. (toteutunut)
+2. Uusi toiminnallisuus omiin brnacheihin ennen mergettämistä. (toteutunut)
+3. Varmistetaan, että jatkuva integraatio toimii. (toteutunut)
+
+## Sprintin 2. retrospektiivi
+(muistiinpanoja):
+
+Aloittaa:
+- 
+
+Lopettaa:
+- 
+
+Jatkaa:
+- Yhteiset tapaamiset
+- Release (task)
+- Parannuskohteet sprintin 3 backlogin taskeiksi
+- Backlogin siivous (task)
+- Työjako kirjattu etukäteen
+
+Enemmän:
+- Enemmän backlogin päivittämistä
+- Enemmän kommunikointii siitä mitä on tekemässä!
+
+Vähemmän: 
+- 
+
+Parannuskohteet:
 1. Tasaisempi työjako saavutetaan noudattamalla Backlogien työjakoa.
-2. Uusi toiminnallisuus omiin brnacheihin ennen mergettämistä.
-3. Varmistetaan, että jatkuva integraatio toimii.
+2. Työjako kirjattu etukäteen.
+3. Ei muuteta toimivia palikoita ilman kommunikointia esim. backlogin kautta.
