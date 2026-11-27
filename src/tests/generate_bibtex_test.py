@@ -20,10 +20,10 @@ class TestBibtexGeneration(unittest.TestCase):
 
     def test_generating_bibtex_with_required_fields_succeeds(self):
         expected = ('@article{authortitle00,\n'
-                     '  author  = "author",\n'
-                     '  title   = "title",\n'
-                     '  journal = "journal",\n'
-                     '  year    = "1900"\n'
+                     '  author  = {author},\n'
+                     '  title   = {title},\n'
+                     '  journal = {journal},\n'
+                     '  year    = {1900}\n'
                      '}')
         result = Citation(self.article_form).generate_bibtex()
 
@@ -38,16 +38,16 @@ class TestBibtexGeneration(unittest.TestCase):
         self.article_form["annote"] = "annote"
 
         expected = ('@article{authortitle00,\n'
-                     '  author  = "author",\n'
-                     '  title   = "title",\n'
-                     '  journal = "journal",\n'
-                     '  year    = "1900",\n'
-                     '  volume  = "1",\n'
-                     '  number  = "1",\n'
-                     '  pages   = "1-10",\n'
-                     '  month   = "1",\n'
-                     '  note    = "note",\n'
-                     '  annote  = "annote"\n'
+                     '  author  = {author},\n'
+                     '  title   = {title},\n'
+                     '  journal = {journal},\n'
+                     '  year    = {1900},\n'
+                     '  volume  = {1},\n'
+                     '  number  = {1},\n'
+                     '  pages   = {1-10},\n'
+                     '  month   = {1},\n'
+                     '  note    = {note},\n'
+                     '  annote  = {annote}\n'
                      '}')
         result = Citation(self.article_form).generate_bibtex()
         self.assertEqual(expected, result)
@@ -79,8 +79,8 @@ class TestBibtexGeneration(unittest.TestCase):
 
         result = Citation(self.article_form).generate_bibtex()
 
-        self.assertIn('  author  = "author"', result)
-        self.assertIn('  annote  = "extra"', result)
+        self.assertIn('  author  = {author}', result)
+        self.assertIn('  annote  = {extra}', result)
 
 
     def test_fields_appear_in_input_order(self):

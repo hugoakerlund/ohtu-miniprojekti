@@ -31,7 +31,7 @@ class Citation:
         key_width = max((len(key) for key, _ in lines), default=0)
 
         formatted_lines = [
-                f'{indent}{key:<{key_width}} = "{value}"'
+                f"{indent}{key:<{key_width}} = " + "{" + value + "}"
                 for key, value in lines
         ]
 

@@ -46,7 +46,7 @@ def citation_deletion():
 @app.route("/export_citations", methods=["POST"])
 def citation_export():
     citations = list(request.form)
-    file_name = "citations.bibtex"
+    file_name = "citations.bib"
     path = export_dir + "/" + file_name
     try:
         export_citations(citations, path)
