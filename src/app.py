@@ -55,6 +55,7 @@ def citation_export():
         return send_file(path, as_attachment=True)
     except UserInputError as error:
         flash(str(error), "error")
+    return redirect("/")
 
 @app.route("/search")
 def search():

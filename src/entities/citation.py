@@ -22,12 +22,20 @@ class Citation:
         last_line = "\n}"
         indent = "  "
 
-        lines = []
-        for key, value in fields.items():
-            if key != "entry_type" and value and len(value) > 0:
-                lines.append(indent + str(key) + " = " + f"\"{value}\"")
-        joined_lines = ",\n".join(lines)
+        lines = [
+            (str(key), value)
+            for key, value in fields.items()
+            if key != "entry_type" and value
+        ]
 
+        key_width = max((len(key) for key, _ in lines), default=0)
+
+        formatted_lines = [
+                f'{indent}{key:<{key_width}} = "{value}"'
+                for key, value in lines
+        ]
+
+        joined_lines = ",\n".join(formatted_lines)
         return  first_line + joined_lines + last_line
 
     def generate_citekey(self, fields):
