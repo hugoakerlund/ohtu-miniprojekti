@@ -33,7 +33,7 @@ When a citation exists exporting it to BibTex succeeds
     Create New Citation
     Click  id=choose-button
     ${download_promise}=  Promise To Wait For Download
-    ...  saveAs=${OUTPUT_DIR}/citations.bib
+    ...  saveAs=${DOWNLOAD_OUTPUT_DIR}/citations.bib
     Click  button >> text=Vie
     ${download}=  Wait For  ${download_promise}
     File Should Exist  ${download}[saveAs]
