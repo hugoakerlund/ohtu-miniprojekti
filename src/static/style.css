@@ -53,6 +53,17 @@ button {
   cursor: pointer;
 }
 
+#export-button {
+  color: white;
+  background: #000000;
+  border: 2px solid white;
+  margin: 20px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 button:hover {
   filter: brightness(5.0);
 }

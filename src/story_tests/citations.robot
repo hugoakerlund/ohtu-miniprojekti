@@ -34,7 +34,7 @@ When a citation exists exporting it to BibTex succeeds
     Click  id=choose-button
     ${download_promise}=  Promise To Wait For Download
     ...  saveAs=${DOWNLOAD_OUTPUT_DIR}/citations.bib
-    Click  button >> text=Vie
+    Click  button >> text=Ulosta
     ${download}=  Wait For  ${download_promise}
     File Should Exist  ${download}[saveAs]
 
