@@ -22,7 +22,7 @@ User can choose a citation type
 When a citation exists deleting a citation succeeds
     Handle Future Dialogs  action=accept
     Create New Citation
-    Click  id=delete-button
+    Click  id=choose-button
     Click  button >> text=Poista
     Get Text  body  *=  Järjestelmässä on tällä hetkellä viitteitä 0 kpl.
 

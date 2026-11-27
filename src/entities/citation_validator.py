@@ -29,12 +29,22 @@ class CitationValidator:
         self._validated_fields = {field: "" for field in self._field_to_validator.keys()}
 
     def validate(self, form):
+        form = self._convert_to_str(form)
         self._validate_field_lengths(form)
         self._validate_required_fields(form)
         self._validate_optional_fields(form)
 
     def get_validated_fields(self):
         return self._validated_fields
+
+    def _convert_to_str(self, form):
+        result = {}
+        for key, value in form.items():
+            if value is not None:
+                result[key] = str(value)
+            else:
+                result[key] = value
+        return result
 
     def _validate_field_lengths(self, form):
         for key, value in form.items():
@@ -44,7 +54,7 @@ class CitationValidator:
 
     def _validate_required_fields(self, form):
         for required_field in self._required_fields:
-            if not form[required_field]:
+            if required_field not in form:
                 raise UserInputError(f"Kenttä {required_field} on pakollinen.")
             self._validate_field(required_field, form[required_field])
             self._validated_fields[required_field] = form[required_field]
@@ -59,7 +69,7 @@ class CitationValidator:
         self._field_to_validator[field](value)
 
     def _validate_text(self, value):
-        if not value.strip():
+        if value and not value.strip():
             raise UserInputError("Kenttä ei voi olla tyhjä.")
 
     def _validate_author(self, value):

@@ -2,17 +2,22 @@ from sqlalchemy import text
 from config import db
 
 ALL_FIELDS = """entry_type, author, title, journal, year,
-                volume, number, pages, month, note, annote,
+                volume, number, pages, month, booktitle, note, annote,
                 howpublished, editor, series, address, organization, publisher"""
 
 ALL_VALUES =  """:entry_type, :author, :title, :journal, :year,
-                 :volume, :number, :pages, :month, :note, :annote,
+                 :volume, :number, :pages, :month, :booktitle, :note, :annote,
                  :howpublished, :editor, :series, :address, :organization, :publisher"""
 
 def get_citations():
     sql = f"""SELECT id, {ALL_FIELDS} FROM citations"""
     result = db.session.execute(text(sql))
     return [dict(row) for row in result.mappings().all()]
+
+def get_citation_by_id(citation_id):
+    sql = f"""SELECT id, {ALL_FIELDS} FROM citations WHERE id = :id"""
+    result = db.session.execute(text(sql), {"id": citation_id})
+    return result.mappings().all()[0]
 
 def get_entry_types():
     sql = "SELECT name FROM entry_types"
@@ -27,7 +32,7 @@ def create_citation(form):
     db.session.commit()
 
 def delete_citation(citation_id):
-    sql = """DELETE FROM citations where id = :id"""
+    sql = """DELETE FROM citations WHERE id = :id"""
     db.session.execute(text(sql), {"id": citation_id})
     db.session.commit()
 

@@ -1,9 +1,11 @@
+import os
 from flask import redirect, render_template, request, jsonify, flash, send_file
 from db_helper import reset_db
 from repositories.citation_repository import get_citations, get_entry_types, \
      create_citation, delete_citation, find_citation
 from config import app, test_env
-from util import UserInputError, get_citation
+from util import UserInputError, get_citation_form
+from export import export_citations
 from entities.citation import Citation
 
 @app.route("/")
@@ -23,7 +25,7 @@ def choose_citation_type():
 
 @app.route("/create_citation", methods=["POST"])
 def citation_creation():
-    form = get_citation(request)
+    form = get_citation_form(request)
     try:
         citation = Citation(form)
         create_citation(citation.get_fields())
@@ -45,8 +47,13 @@ def citation_deletion():
 @app.route("/export_citations", methods=["POST"])
 def citation_export():
     citations = list(request.form)
-    print("exporting citations", citations)
-    path = './app.py'
+    file_name = "citations.bibtex"
+    directory = "exports"
+    path = os.path.join(app.instance_path, directory, file_name)
+    try:
+        export_citations(citations, path)
+    except UserInputError as error:
+        flash(str(error), "error")
     return send_file(path, as_attachment=True)
 
 @app.route("/search")

@@ -16,7 +16,27 @@ class Citation:
         self._citation_object = self._entry_types[self._entry_type](form)
 
     def generate_bibtex(self):
-        return self._citation_object.generate_bibtex()
+        fields = self.get_fields()
+        cite_key = self.generate_citekey(fields)
+        first_line = "@" + fields["entry_type"] + "{" + cite_key + ",\n"
+        last_line = "\n}"
+        indent = "  "
+
+        lines = []
+        for key, value in fields.items():
+            if value and len(value) > 0:
+                lines.append(indent + str(key) + " = " + f"\"{value}\"")
+        joined_lines = ",\n".join(lines)
+
+        return  first_line + joined_lines + last_line
+
+    def generate_citekey(self, fields):
+        author = fields["author"].strip().split(' ')[-1].lower()
+        keyword = fields["title"].strip().split(' ')[-1].lower()
+        year = fields["year"]
+        if len(year) >= 2:
+            year = year[-2:]
+        return author + keyword + year
 
     def get_fields(self):
         fields = self._citation_object.get_fields()
@@ -30,11 +50,11 @@ class Article:
         self._validator = CitationValidator(self._required_fields, self._optional_fields)
         self._validator.validate(form)
 
+    def set_field(self, field, value):
+        pass
+
     def get_fields(self):
         return self._validator.get_validated_fields()
-
-    def generate_bibtex(self):
-        pass
 
 class Book:
     def __init__(self, form):
@@ -43,11 +63,11 @@ class Book:
         self._validator = CitationValidator(self._required_fields, self._optional_fields)
         self._validator.validate(form)
 
+    def set_field(self, field, value):
+        pass
+
     def get_fields(self):
         return self._validator.get_validated_fields()
-
-    def generate_bibtex(self):
-        pass
 
 class Inproceedings:
     def __init__(self, form):
@@ -58,8 +78,8 @@ class Inproceedings:
         self._validator = CitationValidator(self._required_fields, self._optional_fields)
         self._validator.validate(form)
 
+    def set_field(self, field, value):
+        pass
+
     def get_fields(self):
         return self._validator.get_validated_fields()
-
-    def generate_bibtex(self):
-        pass
