@@ -1,5 +1,6 @@
 *** Settings ***
-Library  Browser
+Library    Browser
+Library    OperatingSystem
 
 *** Variables ***
 ${SERVER}             localhost:5001
@@ -9,6 +10,7 @@ ${RESET_URL}          http://${SERVER}/reset_db
 ${NEW_CITATION_URL}   http://${SERVER}/new_citation
 ${BROWSER}            chromium
 ${HEADLESS}           false
+${OUTPUT_DIR}         src/instance/exports
 
 *** Keywords ***
 Open And Configure Browser

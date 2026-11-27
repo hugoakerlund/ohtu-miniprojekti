@@ -52,9 +52,9 @@ def citation_export():
     path = os.path.join(app.instance_path, directory, file_name)
     try:
         export_citations(citations, path)
+        return send_file(path, as_attachment=True)
     except UserInputError as error:
         flash(str(error), "error")
-    return send_file(path, as_attachment=True)
 
 @app.route("/search")
 def search():
