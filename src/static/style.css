@@ -1,14 +1,22 @@
+@font-face {
+    font-family: 'Tannenberg Fett';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Tannenberg Fett'), url('https://fonts.cdnfonts.com/s/8196/TannenbergFett.woff') format('woff');
+}
+
 body {
   background: #000000;
   color: gold;
   margin: auto;
-  font-family: 'Nazi Typewriter', sans-serif;
+  font-family: 'Tannenberg Fett', sans-serif;
   line-height: 1.6;
   text-align: center;
 }
 
 h1 {
-  color: chocolate;
+  color: crimson;
+  font-size: 40pt;
 }
 
 a {
@@ -23,45 +31,21 @@ footer {
   text-align: center;
 }
 
-.main-image {
-  max-width: 100%;
-  height: auto;
-}
-
-.error {
-  text-align: center;
-  color: red;
-}
-
-.success {
-  text-align: center;
-  color: green;
-}
-
-.table {
-  margin: auto;
-}
-
 button {
-  color: red ;
+  color: red;
   background: #000000;
-  border: 1px solid red;
+  border: 2px solid red;
   margin: 20px;
   padding: 10px 16px;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+  font-family: 'Tannenberg Fett', sans-serif;
 }
 
 #export-button {
   color: white;
-  background: #000000;
   border: 2px solid white;
-  margin: 20px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
 }
 
 button:hover {
@@ -75,7 +59,17 @@ td,th {
   border-collapse: collapse;
 }
 
-.citation-table{
+.error {
+  text-align: center;
+  color: red;
+}
+
+.success {
+  text-align: center;
+  color: green;
+}
+
+.citation-table {
   max-width: 760;
   margin: 18px auto;
   padding: 18px;
@@ -83,7 +77,7 @@ td,th {
   box-sizing: border-box;
   border-collapse: collapse;
   margin: auto;
-  border: dashed brown 3px;
+  border: dashed brown 2px;
 }
 
 .form-table {
@@ -96,16 +90,17 @@ td,th {
 }
 
 input,
-.form-table .select {
+.form-table select {
   width: 100%;
   max-width: 420px;
   padding: 8px 10px;
-  border: 1px solid red;
+  border: 2px solid red;
   border-radius: 8px;
   font-size: 0.95rem;
   box-sizing: border-box;
   background: #000000;
   color: gold;
+  font-family: 'Tannenberg Fett', sans-serif;
 }
 
 .form-table td {
@@ -133,16 +128,16 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
   background-color: grey;
-  border: 1px solid white;
+  border: 2px solid white;
   round: 10px;
 }
 
 input[type="checkbox"]:hover {
   background-color: gold;
-  border: 1px solid red;
+  border: 2px solid red;
 }
 
 input[type="checkbox"]:checked {
   background-color: red;
-  border: 1px solid gold;
+  border: 2px solid gold;
 }
